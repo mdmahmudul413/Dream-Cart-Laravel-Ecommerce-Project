@@ -4,6 +4,10 @@
     Edit Category
 @endsection
 
+@section('c-d-block')
+    d-block
+@endsection
+
 @section('body')
 
     <!-- start page title -->

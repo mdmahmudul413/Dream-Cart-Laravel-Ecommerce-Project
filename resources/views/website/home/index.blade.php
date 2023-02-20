@@ -1279,6 +1279,87 @@
                 </div>
                 <!-- End of Category Banner 2Cosl -->
 
+
+                <!-- Start of Consumer Electronics -->
+                <div class="title-links-wrapper title-underline mb-4 d-flex align-items-center appear-animate">
+                    <h2 class="title">Trending Product</h2>
+                    <ul
+                        class="nav-links list-style-none d-flex align-items-center flex-wrap justify-content-center">
+                        <li><a href="shop-banner-sidebar.html">Speaker</a></li>
+                        <li><a href="shop-boxed-banner.html">Cameras</a></li>
+                        <li><a href="shop-fullwidth-banner.html">Audio</a></li>
+                        <li><a href="shop-both-sidebar.html">Smartwatch</a></li>
+                        <li><a href="shop-horizontal-filter.html">Computers</a></li>
+                        <li><a href="shop-list-sidebar.html">TV &amp; Video</a></li>
+                    </ul>
+                </div>
+                <div class="row banner-product-wrapper appear-animate">
+                    <div class="col-xl-3 col-lg-4 col-md-5 mb-4 mb-md-0">
+                        <div class="banner banner-fixed br-xs" style="background-image: url({{asset('/')}}website/assets/images/demos/demo1/banners/3.jpg);
+                            background-color: #363634;">
+                            <div class="banner-content">
+                                <h5 class="banner-subtitle text-white text-uppercase ls-25 font-weight-bold">New
+                                    Arrivals</h5>
+                                <h3 class="banner-title text-white text-capitalize ls-25">Water Proof Camera</h3>
+                                <div class="banner-price-info text-white font-weight-bold ls25">From Only <span
+                                        class="text-primary text-uppercase">25% Off</span></div>
+                                <a href="shop-banner-sidebar.html"
+                                   class="btn btn-white btn-outline btn-rounded">Shop Now</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-9 col-lg-8 col-md-7">
+                            <div class="row">
+                                @foreach($products as $product)
+                                    <div class="product product-slideup-content col-md-3">
+                                        <figure class="product-media">
+                                            <a href="{{route('detail', ['id' => $product->id])}}">
+                                                <img src="{{asset($product->image)}}" alt="Product"
+                                                     width="239" height="269">
+                                            </a>
+                                            <div class="product-action-vertical">
+                                                <a href="#" class="btn-product-icon btn-quickview w-icon-search"
+                                                   title="Quick View"></a>
+                                            </div>
+                                        </figure>
+                                        <div class="product-details">
+                                            <h3 class="product-name">
+                                                <a href="{{route('detail', ['id'=> $product->id])}}">{{$product->name}}</a>
+                                            </h3>
+                                            <div class="ratings-container">
+                                                <div class="ratings-full">
+                                                    <span class="ratings" style="width: 100%;"></span>
+                                                    <span class="tooltiptext tooltip-top"></span>
+                                                </div>
+                                                <a href="#" class="rating-reviews">(3 Reviews)</a>
+                                            </div>
+                                            <div class="product-price">
+                                                <ins class="new-price">Tk {{$product->selling_price}}</ins><del class="old-price">Tk {{$product->regular_price}}</del>
+                                            </div>
+                                        </div>
+                                        <form action="{{route('cart', ['id' => $product->id])}}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="quantity" value="1"/>
+                                            <div class="product-hidden-details">
+                                                <div class="product-action">
+                                                    <button type="submit" class="btn btn-primary btn-sm" title="Add to Cart">
+                                                        <i class="w-icon-cart"></i><span> Add To Cart</span></button>
+                                                    <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
+                                                       title="Add to wishlist"></a>
+                                                    <a href="#" class="btn-product-icon btn-compare w-icon-compare"
+                                                       title="Compare"></a>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <!-- End of Product Slideup Content -->
+                                @endforeach
+                            </div>
+                    </div>
+                </div>
+                <!-- End of Consumer Electronics -->
+
+                <!-- Start of Consumer Electronics -->
                 <div class="title-links-wrapper title-underline mb-4 d-flex align-items-center appear-animate">
                     <h2 class="title">Consumer Electronics</h2>
                     <ul
@@ -1308,25 +1389,8 @@
                         </div>
                     </div>
                     <div class="col-xl-9 col-lg-8 col-md-7">
-                        <div class="swiper-container swiper-theme"
-                             data-swiper-options="{
-                                'spaceBetween': 20,
-                                'slidesPerView': 2,
-                                'breakpoints': {
-                                    '768': {
-                                        'slidesPerView': 2
-                                    },
-                                    '992': {
-                                        'slidesPerView': 3
-                                    },
-                                    '1200': {
-                                        'slidesPerView': 4
-                                    }
-                                }
-                            }">
-                            <div class="swiper-wrapper row cols-xl-4 cols-lg-3 cols-md-2 cols-2">
-                                <div class="swiper-slide product-col">
-                                    <div class="product product-slideup-content">
+                        <div class="swiper-wrapper row">
+                            <div class="product product-slideup-content col-md-3">
                                         <figure class="product-media">
                                             <a href="product-default.html">
                                                 <img src="{{asset('/')}}website/assets/images/demos/demo7/products/5-1.jpg" alt="Product"
@@ -1363,8 +1427,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- End of Product Slideup Content -->
-                                    <div class="product product-slideup-content">
+                            <!-- End of Product Slideup Content -->
+                            <div class="product product-slideup-content col-md-3">
                                         <figure class="product-media">
                                             <a href="product-default.html">
                                                 <img src="{{asset('/')}}website/assets/images/demos/demo7/products/5-2.jpg" alt="Product"
@@ -1401,14 +1465,11 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- End of Product Slideup Content -->
-                                </div>
-                                <!-- End of Product Col -->
-                                <div class="swiper-slide product-col">
-                                    <div class="product product-slideup-content">
+                            <!-- End of Product Slideup Content -->
+                            <div class="product product-slideup-content col-md-3">
                                         <figure class="product-media">
                                             <a href="product-default.html">
-                                                <img src="{{asset('/')}}website/assets/images/demos/demo7/products/5-3.jpg" alt="Product"
+                                                <img src="{{asset('/')}}website/assets/images/demos/demo7/products/5-1.jpg" alt="Product"
                                                      width="239" height="269">
                                             </a>
                                             <div class="product-action-vertical">
@@ -1418,7 +1479,7 @@
                                         </figure>
                                         <div class="product-details">
                                             <h3 class="product-name">
-                                                <a href="product-default.html">Men's Black Watch</a>
+                                                <a href="product-default.html">Populated Gaming Mouse</a>
                                             </h3>
                                             <div class="ratings-container">
                                                 <div class="ratings-full">
@@ -1428,7 +1489,7 @@
                                                 <a href="#" class="rating-reviews">(3 Reviews)</a>
                                             </div>
                                             <div class="product-price">
-                                                <ins class="new-price">$78.99</ins>
+                                                <ins class="new-price">$70.00</ins><del class="old-price">$85.00</del>
                                             </div>
                                         </div>
                                         <div class="product-hidden-details">
@@ -1442,11 +1503,11 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- End of Product Slideup Content -->
-                                    <div class="product product-slideup-content">
+                            <!-- End of Product Slideup Content -->
+                            <div class="product product-slideup-content col-md-3">
                                         <figure class="product-media">
                                             <a href="product-default.html">
-                                                <img src="{{asset('/')}}website/assets/images/demos/demo7/products/5-4.jpg" alt="Product"
+                                                <img src="{{asset('/')}}website/assets/images/demos/demo7/products/5-2.jpg" alt="Product"
                                                      width="239" height="269">
                                             </a>
                                             <div class="product-action-vertical">
@@ -1456,7 +1517,7 @@
                                         </figure>
                                         <div class="product-details">
                                             <h3 class="product-name">
-                                                <a href="product-default.html">Fabulous Sound Speaker</a>
+                                                <a href="product-default.html">Mobile Electronic Recorder</a>
                                             </h3>
                                             <div class="ratings-container">
                                                 <div class="ratings-full">
@@ -1466,7 +1527,7 @@
                                                 <a href="#" class="rating-reviews">(3 Reviews)</a>
                                             </div>
                                             <div class="product-price">
-                                                <ins class="new-price">$73.71</ins><del class="old-price">$250.68</del>
+                                                <ins class="new-price">$26.89</ins><del class="old-price">$29.79</del>
                                             </div>
                                         </div>
                                         <div class="product-hidden-details">
@@ -1480,14 +1541,11 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- End of Product Slideup Content -->
-                                </div>
-                                <!-- End of Product Col -->
-                                <div class="swiper-slide product-col">
-                                    <div class="product product-slideup-content">
+                            <!-- End of Product Slideup Content -->
+                            <div class="product product-slideup-content col-md-3">
                                         <figure class="product-media">
                                             <a href="product-default.html">
-                                                <img src="{{asset('/')}}website/assets/images/demos/demo7/products/5-5.jpg" alt="Product"
+                                                <img src="{{asset('/')}}website/assets/images/demos/demo7/products/5-1.jpg" alt="Product"
                                                      width="239" height="269">
                                             </a>
                                             <div class="product-action-vertical">
@@ -1497,7 +1555,7 @@
                                         </figure>
                                         <div class="product-details">
                                             <h3 class="product-name">
-                                                <a href="product-default.html">Smooth Click Mouse</a>
+                                                <a href="product-default.html">Populated Gaming Mouse</a>
                                             </h3>
                                             <div class="ratings-container">
                                                 <div class="ratings-full">
@@ -1507,7 +1565,7 @@
                                                 <a href="#" class="rating-reviews">(3 Reviews)</a>
                                             </div>
                                             <div class="product-price">
-                                                <ins class="new-price">$18.06</ins>
+                                                <ins class="new-price">$70.00</ins><del class="old-price">$85.00</del>
                                             </div>
                                         </div>
                                         <div class="product-hidden-details">
@@ -1521,11 +1579,11 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- End of Product Slideup Content -->
-                                    <div class="product product-slideup-content">
+                            <!-- End of Product Slideup Content -->
+                            <div class="product product-slideup-content col-md-3">
                                         <figure class="product-media">
                                             <a href="product-default.html">
-                                                <img src="{{asset('/')}}website/assets/images/demos/demo7/products/5-6.jpg" alt="Product"
+                                                <img src="{{asset('/')}}website/assets/images/demos/demo7/products/5-2.jpg" alt="Product"
                                                      width="239" height="269">
                                             </a>
                                             <div class="product-action-vertical">
@@ -1535,7 +1593,7 @@
                                         </figure>
                                         <div class="product-details">
                                             <h3 class="product-name">
-                                                <a href="product-default.html">Dark-grey Mobile Charger</a>
+                                                <a href="product-default.html">Mobile Electronic Recorder</a>
                                             </h3>
                                             <div class="ratings-container">
                                                 <div class="ratings-full">
@@ -1545,7 +1603,7 @@
                                                 <a href="#" class="rating-reviews">(3 Reviews)</a>
                                             </div>
                                             <div class="product-price">
-                                                <ins class="new-price">$450.68</ins><del class="old-price">$500.00</del>
+                                                <ins class="new-price">$26.89</ins><del class="old-price">$29.79</del>
                                             </div>
                                         </div>
                                         <div class="product-hidden-details">
@@ -1559,94 +1617,11 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- End of Product Slideup Content -->
-                                </div>
-                                <!-- End of Product Col -->
-                                <div class="swiper-slide product-col">
-                                    <div class="product product-slideup-content">
-                                        <figure class="product-media">
-                                            <a href="product-default.html">
-                                                <img src="{{asset('/')}}website/assets/images/demos/demo7/products/5-7.jpg" alt="Product"
-                                                     width="239" height="269">
-                                            </a>
-                                            <div class="product-action-vertical">
-                                                <a href="#" class="btn-product-icon btn-quickview w-icon-search"
-                                                   title="Quick View"></a>
-                                            </div>
-                                        </figure>
-                                        <div class="product-details">
-                                            <h3 class="product-name">
-                                                <a href="product-default.html">Wireless Mouse</a>
-                                            </h3>
-                                            <div class="ratings-container">
-                                                <div class="ratings-full">
-                                                    <span class="ratings" style="width: 100%;"></span>
-                                                    <span class="tooltiptext tooltip-top"></span>
-                                                </div>
-                                                <a href="#" class="rating-reviews">(3 Reviews)</a>
-                                            </div>
-                                            <div class="product-price">
-                                                <ins class="new-price">$19.03</ins><del class="old-price">$22.11</del>
-                                            </div>
-                                        </div>
-                                        <div class="product-hidden-details">
-                                            <div class="product-action">
-                                                <a href="#" class="btn-product btn-cart" title="Add to Cart">
-                                                    <i class="w-icon-cart"></i><span>Add To Cart</span></a>
-                                                <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
-                                                   title="Add to wishlist"></a>
-                                                <a href="#" class="btn-product-icon btn-compare w-icon-compare"
-                                                   title="Compare"></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End of Product Slideup Content -->
-                                    <div class="product product-slideup-content">
-                                        <figure class="product-media">
-                                            <a href="product-default.html">
-                                                <img src="{{asset('/')}}website/assets/images/demos/demo7/products/5-8.jpg" alt="Product"
-                                                     width="239" height="269">
-                                            </a>
-                                            <div class="product-action-vertical">
-                                                <a href="#" class="btn-product-icon btn-quickview w-icon-search"
-                                                   title="Quick View"></a>
-                                            </div>
-                                        </figure>
-                                        <div class="product-details">
-                                            <h3 class="product-name">
-                                                <a href="product-default.html">Transit Tool</a>
-                                            </h3>
-                                            <div class="ratings-container">
-                                                <div class="ratings-full">
-                                                    <span class="ratings" style="width: 100%;"></span>
-                                                    <span class="tooltiptext tooltip-top"></span>
-                                                </div>
-                                                <a href="#" class="rating-reviews">(3 Reviews)</a>
-                                            </div>
-                                            <div class="product-price">
-                                                <ins class="new-price">$63.20</ins>
-                                            </div>
-                                        </div>
-                                        <div class="product-hidden-details">
-                                            <div class="product-action">
-                                                <a href="#" class="btn-product btn-cart" title="Add to Cart">
-                                                    <i class="w-icon-cart"></i><span>Add To Cart</span></a>
-                                                <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
-                                                   title="Add to wishlist"></a>
-                                                <a href="#" class="btn-product-icon btn-compare w-icon-compare"
-                                                   title="Compare"></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End of Product Slideup Content -->
-                                </div>
-                                <!-- End of Product Col -->
-                            </div>
-                            <div class="swiper-pagination"></div>
+                            <!-- End of Product Slideup Content -->
                         </div>
                     </div>
                 </div>
-                <!-- End of Banner Product Wrapper -->
+                <!-- End of Consumer Electronics -->
 
                 <div class="title-links-wrapper title-underline mb-4 d-flex align-items-center appear-animate">
                     <h2 class="title">Clothing &amp; Apparel</h2>

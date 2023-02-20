@@ -1,7 +1,15 @@
 @extends('admin.master')
 
 @section('title')
-    Add Category
+    Manage Category
+@endsection
+
+@section('CM-active')
+    active
+@endsection
+
+@section('c-d-block')
+    d-block
 @endsection
 
 @section('body')
@@ -63,12 +71,12 @@
                         </tbody>
                         <tfoot>
                         <tr>
+                            <th>SL No</th>
                             <th>Name</th>
-                            <th>Position</th>
-                            <th>Office</th>
-                            <th>Age</th>
-                            <th>Start date</th>
-                            <th>Salary</th>
+                            <th>Description</th>
+                            <th>Image</th>
+                            <th>Status</th>
+                            <th>Action</th>
                         </tr>
                         </tfoot>
                     </table>

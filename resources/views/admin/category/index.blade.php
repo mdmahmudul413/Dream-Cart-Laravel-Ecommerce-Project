@@ -4,6 +4,14 @@
     Add Category
 @endsection
 
+@section('CI-active')
+    active
+@endsection
+
+@section('c-d-block')
+    d-block
+@endsection
+
 @section('body')
     <!-- start page title -->
     <div class="row">

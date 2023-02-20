@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="changOverflow">
 
 
 <!-- Mirrored from portotheme.com/html/wolmart/demo7.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 01 Feb 2023 09:48:24 GMT -->
@@ -57,6 +57,32 @@
     <!-- Default CSS Home Page -->
     <link rel="stylesheet" type="text/css" href="{{asset('/')}}website/assets/css/demo7.min.css">
 
+    <style>
+        .dropdown > a::after {
+            display: none;
+        }
+        .mfp-bg{
+            display: none;
+        }
+        .mfp-newsletter{
+            display: none;
+        }
+        .mfp-fadein-popup{
+            display: none;
+        }
+        .mfp-ready{
+            display: none;
+        }
+		.menu .submenu .has-submenu > a::after {
+			display: none;
+			content: "";
+			font-weight: 600;
+			font-size: 0.9rem;
+			-webkit-transform: translateY(-50%);
+			transform: translateY(-50%);
+		}
+    </style>
+
 
 </head>
 
@@ -98,14 +124,15 @@
                         </div>
                     </div>
                     <!-- End of Dropdown Menu -->
-                    <span class="divider d-lg-show"></span>
-                    <a href="blog.html" class="d-lg-show">Blog</a>
-                    <a href="contact-us.html" class="d-lg-show">Contact Us</a>
-                    <a href="my-account.html" class="d-lg-show">My Account</a>
-                    <a href="{{asset('/')}}website/assets/ajax/login.html" class="d-lg-show login sign-in"><i
-                            class="w-icon-account"></i>Sign In</a>
-                    <span class="delimiter d-lg-show">/</span>
-                    <a href="{{asset('/')}}website/assets/ajax/login.html" class="ml-0 d-lg-show login register">Register</a>
+                    @if(session('customer_id'))
+                        <span class="divider d-lg-show"></span>
+                        <span class="d-lg-show" style="font-weight: bold;font-size: 14px;">Hello, {{session('customer_name')}}</span>
+                        <a href="{{route('customer.dashboard')}}" class="d-lg-show" style="font-weight: bold;font-size: 14px;">My Dashboard</a>
+                        <a href="{{route('customer.logout')}}" class="d-lg-show" style="font-weight: bold;font-size: 14px;">Log Out</a>
+                    @else
+                        <span class="divider d-lg-show"></span>
+                        <a href="{{route('customer.login')}}" class=""  style="font-weight: bold;font-size: 14px;">Sign In<span class="delimiter d-lg-show">/</span>Register</a>
+                    @endif
                 </div>
             </div>
         </div>
@@ -157,485 +184,96 @@
                         <i class="w-icon-compare"></i>
                         <span class="compare-label d-lg-show">Compare</span>
                     </a>
+
+                    <!-- default cart -->
                     <div class="dropdown cart-dropdown cart-offcanvas mr-0 mr-lg-2">
                         <div class="cart-overlay"></div>
-                        <a href="#" class="cart-toggle label-down link">
+                        <a href="#" class="label-down link right-sidebar-toggle">
                             <i class="w-icon-cart">
-                                <span class="cart-count">2</span>
+                                <span class="cart-count">{{count(Cart::getContent())}}</span>
                             </i>
                             <span class="cart-label">Cart</span>
                         </a>
-                        <div class="dropdown-box">
+                    </div>
+
+                    <!-- Start of Sidebar, Shop Sidebar -->
+                    <aside class="sidebar shop-sidebar right-sidebar sticky-sidebar-wrapper">
+                        <!-- Start of Sidebar Overlay -->
+                        <div class="sidebar-overlay"></div>
+                        <a class="sidebar-close" href="#"><i class="close-icon"></i></a>
+
+                        <!-- Start of Sidebar Content -->
+                        <div class="sidebar-content scrollable">
                             <div class="cart-header">
-                                <span>Shopping Cart</span>
-                                <a href="#" class="btn-close">Close<i class="w-icon-long-arrow-right"></i></a>
+                                <h5>Shopping Cart ({{count(Cart::getContent())}})</h5>
+                                <hr class="divider">
                             </div>
-
-                            <div class="products">
-                                <div class="product product-cart">
+                            @php($sum = 0)
+                            @foreach(Cart::getContent() as $cart_product)
+                                <div class="product product-cart mb-1" style="padding: 0;">
                                     <div class="product-detail">
-                                        <a href="product-default.html" class="product-name">Beige knitted
-                                            elas<br>tic
-                                            runner shoes</a>
+                                        <a href="{{route('detail', ['id' => $cart_product->id])}}" class="product-name">{{$cart_product->name}}</a>
                                         <div class="price-box">
-                                            <span class="product-quantity">1</span>
-                                            <span class="product-price">$25.68</span>
+                                            <span class="product-quantity">{{$cart_product->quantity}}</span>
+                                            <span class="product-price">৳{{$cart_product->price}}</span>
                                         </div>
                                     </div>
                                     <figure class="product-media">
-                                        <a href="product-default.html">
-                                            <img src="{{asset('/')}}website/assets/images/cart/product-1.jpg" alt="product" height="84"
-                                                 width="94" />
+                                        <a href="{{route('detail', ['id' => $cart_product->id])}}">
+                                            <img src="{{asset($cart_product->attributes->image)}}" alt="product" height="84" width="94" />
                                         </a>
                                     </figure>
-                                    <button class="btn btn-link btn-close" aria-label="button">
-                                        <i class="fas fa-times"></i>
-                                    </button>
                                 </div>
-
-                                <div class="product product-cart">
-                                    <div class="product-detail">
-                                        <a href="product-default.html" class="product-name">Blue utility
-                                            pina<br>fore
-                                            denim dress</a>
-                                        <div class="price-box">
-                                            <span class="product-quantity">1</span>
-                                            <span class="product-price">$32.99</span>
-                                        </div>
-                                    </div>
-                                    <figure class="product-media">
-                                        <a href="product-default.html">
-                                            <img src="{{asset('/')}}website/assets/images/cart/product-2.jpg" alt="product" width="84"
-                                                 height="94" />
-                                        </a>
-                                    </figure>
-                                    <button class="btn btn-link btn-close" aria-label="button">
-                                        <i class="fas fa-times"></i>
-                                    </button>
-                                </div>
+                                <hr class="divider mt-2">
+                                @php($sum = $sum + ($cart_product->quantity * $cart_product->price))
+                            @endforeach
+                            <div class="row">
+                                <h5 class="col-6">Subtotal:</h5>
+                                <span class="col-3"></span>
+                                <span class="col-3 text-end"><h5>৳{{$sum}}</h5></span>
                             </div>
 
-                            <div class="cart-total">
-                                <label>Subtotal:</label>
-                                <span class="price">$58.67</span>
-                            </div>
-
-                            <div class="cart-action">
-                                <a href="cart.html" class="btn btn-dark btn-outline btn-rounded">View Cart</a>
-                                <a href="checkout.html" class="btn btn-primary  btn-rounded">Checkout</a>
+                            <div class="row">
+                                <a href="{{route('cart.show')}}" class="btn btn-sm btn-dark btn-outline btn-rounded col-5">View Cart</a>
+                                <div class="col-2"></div>
+                                <a href="{{route('checkout')}}" class="btn btn-sm btn-primary  btn-rounded col-5">Checkout</a>
                             </div>
                         </div>
-                        <!-- End of Dropdown Box -->
-                    </div>
+                        <!-- End of Sidebar Content -->
+                    </aside>
+                    <!-- End of Shop Sidebar -->
                 </div>
             </div>
         </div>
         <!-- End of Header Middle -->
 
-        <!-- End of Header Bottom -->
+        <!-- Start of Header Bottom -->
         <div class="header-bottom sticky-content fix-top sticky-header has-dropdown">
             <div class="container">
                 <div class="inner-wrap">
                     <div class="header-left">
-                        <div class="dropdown category-dropdown" data-visible="true">
-                            <a href="#" class="category-toggle text-white" role="button" data-toggle="dropdown"
-                               aria-haspopup="true" aria-expanded="true" data-display="static"
-                               title="Browse Categories">
-                                <i class="w-icon-category"></i>
-                                <span>Browse Categories</span>
-                            </a>
-
-                            <div class="dropdown-box mt-0">
-                                <ul class="menu vertical-menu category-menu bg-white text-default">
-                                    <li>
-                                        <a href="{{route('category')}}">
-                                            <i class="w-icon-tshirt2"></i>Fashion
-                                        </a>
-                                        <ul class="megamenu">
-                                            <li>
-                                                <h4 class="menu-title">Women</h4>
-                                                <hr class="divider">
-                                                <ul>
-                                                    <li><a href="shop-fullwidth-banner.html">New Arrivals</a>
-                                                    </li>
-                                                    <li><a href="shop-fullwidth-banner.html">Best Sellers</a>
-                                                    </li>
-                                                    <li><a href="shop-fullwidth-banner.html">Trending</a></li>
-                                                    <li><a href="shop-fullwidth-banner.html">Clothing</a></li>
-                                                    <li><a href="shop-fullwidth-banner.html">Shoes</a></li>
-                                                    <li><a href="shop-fullwidth-banner.html">Bags</a></li>
-                                                    <li><a href="shop-fullwidth-banner.html">Accessories</a>
-                                                    </li>
-                                                    <li><a href="shop-fullwidth-banner.html">Jewlery &
-                                                            Watches</a></li>
-
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <h4 class="menu-title">Men</h4>
-                                                <hr class="divider">
-                                                <ul>
-                                                    <li><a href="shop-fullwidth-banner.html">New Arrivals</a>
-                                                    </li>
-                                                    <li><a href="shop-fullwidth-banner.html">Best Sellers</a>
-                                                    </li>
-                                                    <li><a href="shop-fullwidth-banner.html">Trending</a></li>
-                                                    <li><a href="shop-fullwidth-banner.html">Clothing</a></li>
-                                                    <li><a href="shop-fullwidth-banner.html">Shoes</a></li>
-                                                    <li><a href="shop-fullwidth-banner.html">Bags</a></li>
-                                                    <li><a href="shop-fullwidth-banner.html">Accessories</a>
-                                                    </li>
-                                                    <li><a href="shop-fullwidth-banner.html">Jewlery &
-                                                            Watches</a></li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <div class="banner-fixed menu-banner menu-banner2">
-                                                    <figure>
-                                                        <img src="{{asset('/')}}website/assets/images/menu/banner-2.jpg" alt="Menu Banner"
-                                                             width="235" height="347" />
-                                                    </figure>
-                                                    <div class="banner-content">
-                                                        <div class="banner-price-info mb-1 ls-normal">Get up to
-                                                            <strong
-                                                                class="text-primary text-uppercase">20%Off</strong>
-                                                        </div>
-                                                        <h3 class="banner-title ls-normal">Hot Sales</h3>
-                                                        <a href="shop-banner-sidebar.html"
-                                                           class="btn btn-dark btn-sm btn-link btn-slide-right btn-icon-right">
-                                                            Shop Now<i class="w-icon-long-arrow-right"></i>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="shop-fullwidth-banner.html">
-                                            <i class="w-icon-home"></i>Home & Garden
-                                        </a>
-                                        <ul class="megamenu">
-                                            <li>
-                                                <h4 class="menu-title">Bedroom</h4>
-                                                <hr class="divider">
-                                                <ul>
-                                                    <li><a href="shop-fullwidth-banner.html">Beds, Frames &
-                                                            Bases</a></li>
-                                                    <li><a href="shop-fullwidth-banner.html">Dressers</a></li>
-                                                    <li><a href="shop-fullwidth-banner.html">Nightstands</a>
-                                                    </li>
-                                                    <li><a href="shop-fullwidth-banner.html">Kid's Beds &
-                                                            Headboards</a></li>
-                                                    <li><a href="shop-fullwidth-banner.html">Armoires</a></li>
-                                                </ul>
-
-                                                <h4 class="menu-title mt-1">Living Room</h4>
-                                                <hr class="divider">
-                                                <ul>
-                                                    <li><a href="shop-fullwidth-banner.html">Coffee Tables</a>
-                                                    </li>
-                                                    <li><a href="shop-fullwidth-banner.html">Chairs</a></li>
-                                                    <li><a href="shop-fullwidth-banner.html">Tables</a></li>
-                                                    <li><a href="shop-fullwidth-banner.html">Futons & Sofa
-                                                            Beds</a></li>
-                                                    <li><a href="shop-fullwidth-banner.html">Cabinets &
-                                                            Chests</a></li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <h4 class="menu-title">Office</h4>
-                                                <hr class="divider">
-                                                <ul>
-                                                    <li><a href="shop-fullwidth-banner.html">Office Chairs</a>
-                                                    </li>
-                                                    <li><a href="shop-fullwidth-banner.html">Desks</a></li>
-                                                    <li><a href="shop-fullwidth-banner.html">Bookcases</a></li>
-                                                    <li><a href="shop-fullwidth-banner.html">File Cabinets</a>
-                                                    </li>
-                                                    <li><a href="shop-fullwidth-banner.html">Breakroom
-                                                            Tables</a></li>
-                                                </ul>
-
-                                                <h4 class="menu-title mt-1">Kitchen & Dining</h4>
-                                                <hr class="divider">
-                                                <ul>
-                                                    <li><a href="shop-fullwidth-banner.html">Dining Sets</a>
-                                                    </li>
-                                                    <li><a href="shop-fullwidth-banner.html">Kitchen Storage
-                                                            Cabinets</a></li>
-                                                    <li><a href="shop-fullwidth-banner.html">Bashers Racks</a>
-                                                    </li>
-                                                    <li><a href="shop-fullwidth-banner.html">Dining Chairs</a>
-                                                    </li>
-                                                    <li><a href="shop-fullwidth-banner.html">Dining Room
-                                                            Tables</a></li>
-                                                    <li><a href="shop-fullwidth-banner.html">Bar Stools</a></li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <div class="menu-banner banner-fixed menu-banner3">
-                                                    <figure>
-                                                        <img src="{{asset('/')}}website/assets/images/menu/banner-3.jpg" alt="Menu Banner"
-                                                             width="235" height="461" />
-                                                    </figure>
-                                                    <div class="banner-content">
-                                                        <h4
-                                                            class="banner-subtitle font-weight-normal text-white mb-1">
-                                                            Restroom</h4>
-                                                        <h3
-                                                            class="banner-title font-weight-bolder text-white ls-normal">
-                                                            Furniture Sale</h3>
-                                                        <div
-                                                            class="banner-price-info text-white font-weight-normal ls-25">
-                                                            Up to <span
-                                                                class="text-secondary text-uppercase font-weight-bold">25%
-                                                                    Off</span></div>
-                                                        <a href="shop-banner-sidebar.html"
-                                                           class="btn btn-white btn-link btn-sm btn-slide-right btn-icon-right">
-                                                            Shop Now<i class="w-icon-long-arrow-right"></i>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="shop-fullwidth-banner.html">
-                                            <i class="w-icon-electronics"></i>Electronics
-                                        </a>
-                                        <ul class="megamenu">
-                                            <li>
-                                                <h4 class="menu-title">Laptops &amp; Computers</h4>
-                                                <hr class="divider">
-                                                <ul>
-                                                    <li><a href="shop-fullwidth-banner.html">Desktop
-                                                            Computers</a></li>
-                                                    <li><a href="shop-fullwidth-banner.html">Monitors</a></li>
-                                                    <li><a href="shop-fullwidth-banner.html">Laptops</a></li>
-                                                    <li><a href="shop-fullwidth-banner.html">Hard Drives &amp;
-                                                            Storage</a></li>
-                                                    <li><a href="shop-fullwidth-banner.html">Computer
-                                                            Accessories</a></li>
-                                                </ul>
-
-                                                <h4 class="menu-title mt-1">TV &amp; Video</h4>
-                                                <hr class="divider">
-                                                <ul>
-                                                    <li><a href="shop-fullwidth-banner.html">TVs</a></li>
-                                                    <li><a href="shop-fullwidth-banner.html">Home Audio
-                                                            Speakers</a></li>
-                                                    <li><a href="shop-fullwidth-banner.html">Projectors</a></li>
-                                                    <li><a href="shop-fullwidth-banner.html">Media Streaming
-                                                            Devices</a></li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <h4 class="menu-title">Digital Cameras</h4>
-                                                <hr class="divider">
-                                                <ul>
-                                                    <li><a href="shop-fullwidth-banner.html">Digital SLR
-                                                            Cameras</a></li>
-                                                    <li><a href="shop-fullwidth-banner.html">Sports & Action
-                                                            Cameras</a></li>
-                                                    <li><a href="shop-fullwidth-banner.html">Camera Lenses</a>
-                                                    </li>
-                                                    <li><a href="shop-fullwidth-banner.html">Photo Printer</a>
-                                                    </li>
-                                                    <li><a href="shop-fullwidth-banner.html">Digital Memory
-                                                            Cards</a></li>
-                                                </ul>
-
-                                                <h4 class="menu-title mt-1">Cell Phones</h4>
-                                                <hr class="divider">
-                                                <ul>
-                                                    <li><a href="shop-fullwidth-banner.html">Carrier Phones</a>
-                                                    </li>
-                                                    <li><a href="shop-fullwidth-banner.html">Unlocked Phones</a>
-                                                    </li>
-                                                    <li><a href="shop-fullwidth-banner.html">Phone & Cellphone
-                                                            Cases</a></li>
-                                                    <li><a href="shop-fullwidth-banner.html">Cellphone
-                                                            Chargers</a></li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <div class="menu-banner banner-fixed menu-banner4">
-                                                    <figure>
-                                                        <img src="{{asset('/')}}website/assets/images/menu/banner-4.jpg" alt="Menu Banner"
-                                                             width="235" height="433" />
-                                                    </figure>
-                                                    <div class="banner-content">
-                                                        <h4 class="banner-subtitle font-weight-normal">Deals Of The
-                                                            Week</h4>
-                                                        <h3 class="banner-title text-white">Save On Smart EarPhone
-                                                        </h3>
-                                                        <div
-                                                            class="banner-price-info text-secondary font-weight-bolder text-uppercase text-secondary">
-                                                            20% Off</div>
-                                                        <a href="shop-banner-sidebar.html"
-                                                           class="btn btn-white btn-outline btn-sm btn-rounded">Shop
-                                                            Now</a>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="shop-fullwidth-banner.html">
-                                            <i class="w-icon-furniture"></i>Furniture
-                                        </a>
-                                        <ul class="megamenu type2">
-                                            <li class="row">
-                                                <div class="col-md-3 col-lg-3 col-6">
-                                                    <h4 class="menu-title">Furniture</h4>
-                                                    <hr class="divider" />
-                                                    <ul>
-                                                        <li><a href="shop-fullwidth-banner.html">Sofas & Couches</a>
-                                                        </li>
-                                                        <li><a href="shop-fullwidth-banner.html">Armchairs</a></li>
-                                                        <li><a href="shop-fullwidth-banner.html">Bed Frames</a></li>
-                                                        <li><a href="shop-fullwidth-banner.html">Beside Tables</a>
-                                                        </li>
-                                                        <li><a href="shop-fullwidth-banner.html">Dressing Tables</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="col-md-3 col-lg-3 col-6">
-                                                    <h4 class="menu-title">Lighting</h4>
-                                                    <hr class="divider" />
-                                                    <ul>
-                                                        <li><a href="shop-fullwidth-banner.html">Light Bulbs</a>
-                                                        </li>
-                                                        <li><a href="shop-fullwidth-banner.html">Lamps</a></li>
-                                                        <li><a href="shop-fullwidth-banner.html">Celling Lights</a>
-                                                        </li>
-                                                        <li><a href="shop-fullwidth-banner.html">Wall Lights</a>
-                                                        </li>
-                                                        <li><a href="shop-fullwidth-banner.html">Bathroom
-                                                                Lighting</a></li>
-                                                    </ul>
-                                                </div>
-                                                <div class="col-md-3 col-lg-3 col-6">
-                                                    <h4 class="menu-title">Home Accessories</h4>
-                                                    <hr class="divider" />
-                                                    <ul>
-                                                        <li><a href="shop-fullwidth-banner.html">Decorative
-                                                                Accessories</a></li>
-                                                        <li><a href="shop-fullwidth-banner.html">Candals &
-                                                                Holders</a></li>
-                                                        <li><a href="shop-fullwidth-banner.html">Home Fragrance</a>
-                                                        </li>
-                                                        <li><a href="shop-fullwidth-banner.html">Mirrors</a></li>
-                                                        <li><a href="shop-fullwidth-banner.html">Clocks</a></li>
-                                                    </ul>
-                                                </div>
-                                                <div class="col-md-3 col-lg-3 col-6">
-                                                    <h4 class="menu-title">Garden & Outdoors</h4>
-                                                    <hr class="divider" />
-                                                    <ul>
-                                                        <li><a href="shop-fullwidth-banner.html">Garden
-                                                                Furniture</a></li>
-                                                        <li><a href="shop-fullwidth-banner.html">Lawn Mowers</a>
-                                                        </li>
-                                                        <li><a href="shop-fullwidth-banner.html">Pressure
-                                                                Washers</a></li>
-                                                        <li><a href="shop-fullwidth-banner.html">All Garden
-                                                                Tools</a></li>
-                                                        <li><a href="shop-fullwidth-banner.html">Outdoor Dining</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </li>
-                                            <li class="row">
-                                                <div class="col-6">
-                                                    <div class="banner banner-fixed menu-banner5 br-xs">
-                                                        <figure>
-                                                            <img src="{{asset('/')}}website/assets/images/menu/banner-5.jpg" alt="Banner"
-                                                                 width="410" height="123"
-                                                                 style="background-color: #D2D2D2;" />
-                                                        </figure>
-                                                        <div class="banner-content text-right y-50">
-                                                            <h4
-                                                                class="banner-subtitle font-weight-normal text-default text-capitalize">
-                                                                New Arrivals</h4>
-                                                            <h3
-                                                                class="banner-title font-weight-bolder text-capitalize ls-normal">
-                                                                Amazing Sofa</h3>
-                                                            <div
-                                                                class="banner-price-info font-weight-normal ls-normal">
-                                                                Starting at <strong>$125.00</strong></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-6">
-                                                    <div class="banner banner-fixed menu-banner5 br-xs">
-                                                        <figure>
-                                                            <img src="{{asset('/')}}website/assets/images/menu/banner-6.jpg" alt="Banner"
-                                                                 width="410" height="123"
-                                                                 style="background-color: #9F9888;" />
-                                                        </figure>
-                                                        <div class="banner-content y-50">
-                                                            <h4
-                                                                class="banner-subtitle font-weight-normal text-white text-capitalize">
-                                                                Best Seller</h4>
-                                                            <h3
-                                                                class="banner-title font-weight-bolder text-capitalize text-white ls-normal">
-                                                                Chair &amp; Lamp</h3>
-                                                            <div
-                                                                class="banner-price-info font-weight-normal ls-normal text-white">
-                                                                From <strong>$165.00</strong></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="shop-fullwidth-banner.html">
-                                            <i class="w-icon-heartbeat"></i>Healthy & Beauty
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="shop-fullwidth-banner.html">
-                                            <i class="w-icon-gift"></i>Gift Ideas
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="shop-fullwidth-banner.html">
-                                            <i class="w-icon-gamepad"></i>Toy & Games
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="shop-fullwidth-banner.html">
-                                            <i class="w-icon-ice-cream"></i>Cooking
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="shop-fullwidth-banner.html">
-                                            <i class="w-icon-ios"></i>Smart Phones
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="shop-fullwidth-banner.html">
-                                            <i class="w-icon-camera"></i>Cameras & Photo
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="shop-fullwidth-banner.html">
-                                            <i class="w-icon-ruby"></i>Accessories
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="shop-banner-sidebar.html"
-                                           class="font-weight-bold text-uppercase ls-25">
-                                            View All Categories<i class="w-icon-angle-right"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
                         <nav class="main-nav ml-4">
                             <ul class="menu">
+                                <li style="height: 53px;background-color: rgb(237, 115, 29);padding: 1px 15px 0px 0px;margin-right: 0;"></li>
+                                <li style="padding: 1px 51px 0px 25px; background-color: rgb(237, 115, 29);">
+                                    <div class="" style="height: 52px;width: 155px;text-align: center;padding: 17px 0px 0px 0px;" href="blog.html">Browse Categories</div>
+                                    <ul style="width: 106%;">
+                                        @foreach($categories as $category)
+                                            <li>
+                                                <a href="{{route('category', ['id' => $category->id])}}">{{$category->name}}</a>
+                                                <ul>
+                                                    @foreach($category->subCategories as $subCategory)
+                                                        <li><a href="{{route('sub-category', ['id' => $subCategory->id])}}">{{$subCategory->name}}</a></li>
+                                                        <hr class="divider">
+                                                    @endforeach
+                                                </ul>
+                                            </li>
+                                            <hr class="divider">
+                                        @endforeach
+										<li><a href="#">More Categories</a></li>
+                                    </ul>
+                                </li>
+
                                 <li class="active">
                                     <a href="demo7.html">Home</a>
                                 </li>
@@ -813,8 +451,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- End of Header Bottom -->
+        </div></header>
+    <!-- End of Header Bottom -->
     </header>
     <!-- End of Header -->
 
@@ -1787,6 +1425,18 @@
 
 <!-- Main JS -->
 <script src="{{asset('/')}}website/assets/js/main.min.js"></script>
+
+<script>
+    let html = document.getElementById('changOverflow');
+    html.addEventListener('mousemove', function () {
+        html.style.overflow = 'auto';
+        html.style.marginRight = '0px';
+    });
+    html.addEventListener('keypress', function () {
+        html.style.overflow = 'auto';
+        html.style.marginRight = '0px';
+    });
+</script>
 
 </body>
 

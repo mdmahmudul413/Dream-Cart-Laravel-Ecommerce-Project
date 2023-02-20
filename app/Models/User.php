@@ -18,6 +18,8 @@ class User extends Authenticatable
     use Notifiable;
     use TwoFactorAuthenticatable;
 
+    private static $user;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -58,4 +60,33 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public static function createUser($request)
+    {
+        self::$user             = new User();
+        self::$user->name       = $request->name;
+        self::$user->email      = $request->email;
+        self::$user->password   = bcrypt($request->password);
+        self::$user->user_type  = $request->user_type;
+        self::$user->save();
+    }
+
+    public static function updateUser($request, $id)
+    {
+        self::$user             = User::find($id);
+        self::$user->name       = $request->name;
+        self::$user->email      = $request->email;
+        if(!$request->password == null)
+        {
+            self::$user->password   = bcrypt($request->password);
+        }
+        self::$user->user_type  = $request->user_type;
+        self::$user->save();
+    }
+
+    public static function deleteUser($id)
+    {
+        self::$user = User::find($id);
+        self::$user->delete();
+    }
 }

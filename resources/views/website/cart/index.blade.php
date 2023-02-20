@@ -22,6 +22,7 @@
         <!-- Start of PageContent -->
         <div class="page-content">
             <div class="container">
+                <h4 class="text-center text-success" style="color: #3a963a;font-size: 26px;">{{session('message')}}</h4>
                 <div class="row gutter-lg mb-10">
                     <div class="col-lg-8 pr-lg-4 mb-6">
                         <table class="shop-table cart-table">
@@ -29,71 +30,51 @@
                             <tr>
                                 <th class="product-name"><span>Product</span></th>
                                 <th></th>
-                                <th class="product-price"><span>Price</span></th>
+                                <th class="product-price"><span>Price (Tk)</span></th>
                                 <th class="product-quantity"><span>Quantity</span></th>
-                                <th class="product-subtotal"><span>Subtotal</span></th>
+                                <th class="product-subtotal"><span>Subtotal (Tk)</span></th>
                             </tr>
                             </thead>
                             <tbody>
+                            @php($sum = 0)
+                            @foreach($cart_products as $cart_product)
                             <tr>
                                 <td class="product-thumbnail">
                                     <div class="p-relative">
+                                        <div style="text-align: end;">
+                                            <a href="{{route('cart.remove', ['id' => $cart_product->id])}}" class="btn btn-close"><i class="fas fa-times"></i></a>
+                                        </div>
                                         <a href="product-default.html">
                                             <figure>
-                                                <img src="{{asset('/')}}website/assets/images/shop/12.jpg" alt="product"
+                                                <img src="{{asset($cart_product->attributes->image)}}" alt="product"
                                                      width="300" height="338">
                                             </figure>
                                         </a>
-                                        <button type="submit" class="btn btn-close"><i
-                                                class="fas fa-times"></i></button>
                                     </div>
                                 </td>
                                 <td class="product-name">
-                                    <a href="product-default.html">
-                                        Classic Simple Backpack
+                                    <a href="{{route('detail', ['id' => $cart_product->id])}}">
+                                        {{$cart_product->name}}
                                     </a>
+                                    <p class="mb-0">Category: {{$cart_product->attributes->category}}</p>
+                                    <p class="mb-0">Brand: {{$cart_product->attributes->brand}}</p>
                                 </td>
-                                <td class="product-price"><span class="amount">$40.00</span></td>
-                                <td class="product-quantity">
-                                    <div class="input-group">
-                                        <input class="quantity form-control" type="number" min="1" max="100000">
-                                        <button class="quantity-plus w-icon-plus"></button>
-                                        <button class="quantity-minus w-icon-minus"></button>
-                                    </div>
+                                <td class="product-price" style="text-align: center;"><span class="amount">{{$cart_product->price}}</span></td>
+                                <td class="product-quantity" style="text-align: center;">
+                                    <form action="{{route('cart.update', [$cart_product->id])}}" method="POST">
+                                        @csrf
+                                        <div class="input-group">
+                                            <input name="quantity" type="number" min="1" value="{{$cart_product->quantity}}" style="width: 85px; text-align: center; color: #565151; font-size: 16px; border:2px solid rgb(237, 115, 29);"/>
+                                            <input style="padding: 0px 8px;" class="btn btn-primary" type="submit" value="Update"/>
+                                        </div>
+                                    </form>
                                 </td>
-                                <td class="product-subtotal">
-                                    <span class="amount">$40.00</span>
+                                <td class="product-subtotal" style="text-align: center;">
+                                    <span class="amount">{{$cart_product->quantity * $cart_product->price}}</span>
                                 </td>
                             </tr>
-                            <tr>
-                                <td class="product-thumbnail">
-                                    <div class="p-relative">
-                                        <a href="product-default.html">
-                                            <figure>
-                                                <img src="{{asset('/')}}website/assets/images/shop/13.jpg" alt="product"
-                                                     width="300" height="338">
-                                            </figure>
-                                        </a>
-                                        <button class="btn btn-close"><i class="fas fa-times"></i></button>
-                                    </div>
-                                </td>
-                                <td class="product-name">
-                                    <a href="product-default.html">
-                                        Smart Watch
-                                    </a>
-                                </td>
-                                <td class="product-price"><span class="amount">$60.00</span></td>
-                                <td class="product-quantity">
-                                    <div class="input-group">
-                                        <input class="quantity form-control" type="number" min="1" max="100000">
-                                        <button class="quantity-plus w-icon-plus"></button>
-                                        <button class="quantity-minus w-icon-minus"></button>
-                                    </div>
-                                </td>
-                                <td class="product-subtotal">
-                                    <span class="amount">$60.00</span>
-                                </td>
-                            </tr>
+                                @php($sum = $sum + ($cart_product->quantity * $cart_product->price))
+                            @endforeach
                             </tbody>
                         </table>
 
@@ -103,105 +84,39 @@
                             <button type="submit" class="btn btn-rounded btn-update disabled" name="update_cart" value="Update Cart">Update Cart</button>
                         </div>
 
-                        <form class="coupon">
-                            <h5 class="title coupon-title font-weight-bold text-uppercase">Coupon Discount</h5>
-                            <input type="text" class="form-control mb-4" placeholder="Enter coupon code here..." required />
-                            <button class="btn btn-dark btn-outline btn-rounded">Apply Coupon</button>
-                        </form>
                     </div>
                     <div class="col-lg-4 sticky-sidebar-wrapper">
                         <div class="sticky-sidebar">
                             <div class="cart-summary mb-4">
-                                <h3 class="cart-title text-uppercase">Cart Totals</h3>
-                                <div class="cart-subtotal d-flex align-items-center justify-content-between">
-                                    <label class="ls-25">Subtotal</label>
-                                    <span>$100.00</span>
-                                </div>
-
+                                <h3 class="cart-title text-uppercase">Cart Summery</h3>
                                 <hr class="divider">
-
-                                <ul class="shipping-methods mb-2">
-                                    <li>
-                                        <label
-                                            class="shipping-title text-dark font-weight-bold">Shipping</label>
-                                    </li>
-                                    <li>
-                                        <div class="custom-radio">
-                                            <input type="radio" id="free-shipping" class="custom-control-input"
-                                                   name="shipping">
-                                            <label for="free-shipping"
-                                                   class="custom-control-label color-dark">Free
-                                                Shipping</label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="custom-radio">
-                                            <input type="radio" id="local-pickup" class="custom-control-input"
-                                                   name="shipping">
-                                            <label for="local-pickup"
-                                                   class="custom-control-label color-dark">Local
-                                                Pickup</label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="custom-radio">
-                                            <input type="radio" id="flat-rate" class="custom-control-input"
-                                                   name="shipping">
-                                            <label for="flat-rate" class="custom-control-label color-dark">Flat
-                                                rate:
-                                                $5.00</label>
-                                        </div>
-                                    </li>
-                                </ul>
-
-                                <div class="shipping-calculator">
-                                    <p class="shipping-destination lh-1">Shipping to <strong>CA</strong>.</p>
-
-                                    <form class="shipping-calculator-form">
-                                        <div class="form-group">
-                                            <div class="select-box">
-                                                <select name="country" class="form-control form-control-md">
-                                                    <option value="default" selected="selected">United States
-                                                        (US)
-                                                    </option>
-                                                    <option value="us">United States</option>
-                                                    <option value="uk">United Kingdom</option>
-                                                    <option value="fr">France</option>
-                                                    <option value="aus">Australia</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="select-box">
-                                                <select name="state" class="form-control form-control-md">
-                                                    <option value="default" selected="selected">California
-                                                    </option>
-                                                    <option value="ohaio">Ohaio</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <input class="form-control form-control-md" type="text"
-                                                   name="town-city" placeholder="Town / City">
-                                        </div>
-                                        <div class="form-group">
-                                            <input class="form-control form-control-md" type="text"
-                                                   name="zipcode" placeholder="ZIP">
-                                        </div>
-                                        <button type="submit" class="btn btn-dark btn-outline btn-rounded">Update
-                                            Totals</button>
-                                    </form>
+                                <div class="cart-subtotal d-flex align-items-center justify-content-between mb-1">
+                                    <label class="ls-25">Cart Subtotal (Tk)</label>
+                                    <span>{{$sum}}</span>
                                 </div>
-
+                                <div class="cart-subtotal d-flex align-items-center justify-content-between mb-1">
+                                    <label class="ls-25">Tax Amount (Tk)</label>
+                                    <span>{{$tax = $sum * .15}}</span>
+                                </div>
+                                <div class="cart-subtotal d-flex align-items-center justify-content-between mb-1">
+                                    <label class="ls-25">Shipping (Tk)</label>
+                                    <span>{{$shipping = 250}}</span>
+                                </div>
                                 <hr class="divider mb-6">
                                 <div class="order-total d-flex justify-content-between align-items-center">
-                                    <label>Total</label>
-                                    <span class="ls-50">$100.00</span>
+                                    <label>Total Payable (Tk)</label>
+                                    <span class="ls-50">{{$totalPayable = $sum + $tax + $shipping}}</span>
                                 </div>
                                 <a href="{{route('checkout')}}"
                                    class="btn btn-block btn-dark btn-icon-right btn-rounded  btn-checkout">
                                     Proceed to checkout<i class="w-icon-long-arrow-right"></i></a>
                             </div>
+                            <form class="coupon" style="border:  2px solid #e2e2e2; padding: 20px;">
+                                <h5 class="title coupon-title font-weight-bold text-uppercase">Coupon Discount</h5>
+                                <hr class="divider mb-6">
+                                <input type="text" class="form-control mb-4" placeholder="Enter coupon code here..." required />
+                                <button class="btn btn-dark btn-rounded">Apply Coupon</button>
+                            </form>
                         </div>
                     </div>
                 </div>

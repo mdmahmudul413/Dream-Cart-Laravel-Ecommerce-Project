@@ -6,7 +6,7 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>Admint | @yield('title')</title>
+    <title>Admin | @yield('title')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
@@ -30,6 +30,8 @@
     <!-- custom Css-->
     <link href="{{asset('/')}}admin/assets/css/custom.min.css" rel="stylesheet" type="text/css" />
 
+
+
     <!-- date table-->
     <link rel="stylesheet" href="{{asset('/')}}admin/assets/datatable/jquery.dataTables.min.css">
     <script src="{{asset('/')}}admin/assets/datatable/jquery-3.5.1.js"></script>
@@ -47,7 +49,7 @@
 <!-- Begin page -->
 <div id="layout-wrapper">
 
-    <header id="page-topbar">
+    <header id="page-topbar" style="background-color: white;border-bottom: 2px solid gainsboro;">
         <div class="layout-width">
             <div class="navbar-header">
                 <div class="d-flex">
@@ -676,15 +678,15 @@
                         <span class="d-flex align-items-center">
                             <img class="rounded-circle header-profile-user" src="{{asset('/')}}admin/assets/images/users/avatar-1.jpg" alt="Header Avatar">
                             <span class="text-start ms-xl-2">
-                                <span class="d-none d-xl-inline-block ms-1 fw-semibold user-name-text">Anna Adame</span>
-                                <span class="d-none d-xl-block ms-1 fs-12 text-muted user-name-sub-text">Founder</span>
+                                <span class="d-none d-xl-inline-block ms-1 fw-semibold user-name-text">{{Auth::user()->name}}</span>
+                                <span class="d-none d-xl-block ms-1 fs-12 text-muted user-name-sub-text">{{Auth::user()->user_type == 1 ? 'Super Admin' : ''}} {{Auth::user()->user_type == 2 ? 'Admin' : ''}} {{Auth::user()->user_type == 3 ? 'Executive' : ''}}</span>
                             </span>
                         </span>
                         </button>
                         <div class="dropdown-menu dropdown-menu-end">
                             <!-- item-->
                             <h6 class="dropdown-header">Welcome Anna!</h6>
-                            <a class="dropdown-item" href="pages-profile.html"><i class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Profile</span></a>
+                            <a class="dropdown-item" href="{{route('user.profile')}}"><i class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Profile</span></a>
                             <a class="dropdown-item" href="apps-chat.html"><i class="mdi mdi-message-text-outline text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Messages</span></a>
                             <a class="dropdown-item" href="apps-tasks-kanban.html"><i class="mdi mdi-calendar-check-outline text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Taskboard</span></a>
                             <a class="dropdown-item" href="pages-faqs.html"><i class="mdi mdi-lifebuoy text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Help</span></a>
@@ -763,7 +765,7 @@
                 <ul class="navbar-nav" id="navbar-nav">
                     <li class="menu-title"><span data-key="t-menu">Menu</span></li>
                     <li class="nav-item">
-                        <a class="nav-link menu-link" href="{{route('dashboard')}}">
+                        <a class="nav-link menu-link @yield('D-active')" href="{{route('dashboard')}}">
                             <i class="ri-dashboard-2-line"></i> <span>Dashboards</span>
                         </a>
                     </li> <!-- end Dashboard Menu -->
@@ -771,13 +773,13 @@
                         <a class="nav-link menu-link" href="#sidebarCategory" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
                             <i class="ri-apps-2-line"></i> <span>Category Module</span>
                         </a>
-                        <div class="collapse menu-dropdown" id="sidebarCategory">
+                        <div class="collapse menu-dropdown @yield('c-d-block')" id="sidebarCategory">
                             <ul class="nav nav-sm flex-column">
                                 <li class="nav-item">
-                                    <a href="{{route('category.add')}}" class="nav-link"> Add Category </a>
+                                    <a href="{{route('category.add')}}" class="nav-link @yield('CI-active')"> Add Category </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{route('category.manage')}}" class="nav-link"> Manage Category </a>
+                                    <a href="{{route('category.manage')}}" class="nav-link @yield('CM-active')"> Manage Category </a>
                                 </li>
                             </ul>
                         </div>
@@ -787,13 +789,13 @@
                         <a class="nav-link menu-link" href="#sidebarSubCategory" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarLayouts">
                             <i class="ri-layout-3-line"></i> <span>Sub Category Module</span>
                         </a>
-                        <div class="collapse menu-dropdown" id="sidebarSubCategory">
+                        <div class="collapse menu-dropdown @yield('sc-d-block')" id="sidebarSubCategory">
                             <ul class="nav nav-sm flex-column">
                                 <li class="nav-item">
-                                    <a href="layouts-horizontal.html" class="nav-link">Add Sub Category</a>
+                                    <a href="{{route('sub-category.add')}}" class="nav-link @yield('SCI-active')">Add Sub Category</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="layouts-detached.html" class="nav-link">Manage Sub Category</a>
+                                    <a href="{{route('sub-category.manage')}}" class="nav-link @yield('SCM-active')">Manage Sub Category</a>
                                 </li>
                             </ul>
                         </div>
@@ -803,13 +805,13 @@
                         <a class="nav-link menu-link" href="#sidebarBrand" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAuth">
                             <i class="ri-account-circle-line"></i> <span>Brand Module</span>
                         </a>
-                        <div class="collapse menu-dropdown" id="sidebarBrand">
+                        <div class="collapse menu-dropdown @yield('b-d-block')" id="sidebarBrand">
                             <ul class="nav nav-sm flex-column">
                                 <li class="nav-item">
-                                    <a href="#sidebarSignIn" class="nav-link"> <span>Add Brand</span>
+                                    <a href="{{route('brand.add')}}" class="nav-link @yield('BI-active')"> <span>Add Brand</span>
                                     </a>
                                 </li>
-                                    <a href="#sidebarSignIn" class="nav-link"> <span>Manage Brand</span>
+                                    <a href="{{route('brand.manage')}}" class="nav-link @yield('BM-active')"> <span>Manage Brand</span>
                                     </a>
                                 </li>
                             </ul>
@@ -820,13 +822,13 @@
                         <a class="nav-link menu-link" href="#sidebarUnit" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarPages">
                             <i class="ri-pages-line"></i> <span>Unit Module</span>
                         </a>
-                        <div class="collapse menu-dropdown" id="sidebarUnit">
+                        <div class="collapse menu-dropdown @yield('u-d-block')" id="sidebarUnit">
                             <ul class="nav nav-sm flex-column">
                                 <li class="nav-item">
-                                    <a href="pages-starter.html" class="nav-link"> Add Unit </a>
+                                    <a href="{{route('unit.add')}}" class="nav-link @yield('UI-active')"> Add Unit </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="pages-starter.html" class="nav-link"> Manage Unit </a>
+                                    <a href="{{route('unit.manage')}}" class="nav-link @yield('UM-active')"> Manage Unit </a>
                                 </li>
                             </ul>
                         </div>
@@ -836,13 +838,13 @@
                         <a class="nav-link menu-link" href="#sidebarProduct" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarLanding">
                             <i class="ri-rocket-line"></i> <span>Product Module</span>
                         </a>
-                        <div class="collapse menu-dropdown" id="sidebarProduct">
+                        <div class="collapse menu-dropdown @yield('p-d-block')" id="sidebarProduct">
                             <ul class="nav nav-sm flex-column">
                                 <li class="nav-item">
-                                    <a href="landing.html" class="nav-link"> Add Product </a>
+                                    <a href="{{route('product.add')}}" class="nav-link @yield('PI-active')"> Add Product </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="landing.html" class="nav-link"> Manage Product </a>
+                                    <a href="{{route('product.manage')}}" class="nav-link @yield('PM-active')"> Manage Product </a>
                                 </li>
                             </ul>
                         </div>
@@ -852,12 +854,12 @@
                         <a class="nav-link menu-link" href="#sidebarOrder" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarUI">
                             <i class="ri-pencil-ruler-2-line"></i> <span>Order Module</span>
                         </a>
-                        <div class="collapse menu-dropdown mega-dropdown-menu" id="sidebarOrder">
+                        <div class="collapse menu-dropdown mega-dropdown-menu @yield('mo-d-block')" id="sidebarOrder">
                             <div class="row">
                                 <div class="col-lg-4">
                                     <ul class="nav nav-sm flex-column">
                                         <li class="nav-item">
-                                            <a href="ui-alerts.html" class="nav-link">Manage Order</a>
+                                            <a href="{{route('admin.order-manage')}}" class="nav-link @yield('MO-active')">Manage Order</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -891,21 +893,23 @@
                         </div>
                     </li>
 
+                    @if(Auth::user()->user_type == 1)
                     <li class="nav-item">
                         <a class="nav-link menu-link" href="#sidebarUser" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarTables">
                             <i class="ri-layout-grid-line"></i> <span>User Module</span>
                         </a>
-                        <div class="collapse menu-dropdown" id="sidebarUser">
+                        <div class="collapse menu-dropdown @yield('us-d-block')" id="sidebarUser">
                             <ul class="nav nav-sm flex-column">
                                 <li class="nav-item">
-                                    <a href="tables-basic.html" class="nav-link">Add User</a>
+                                    <a href="{{route('user.add')}}" class="nav-link @yield('USI-active')">Add User</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="tables-gridjs.html" class="nav-link">Manage User</a>
+                                    <a href="{{route('user.manage')}}" class="nav-link @yield('USM-active')">Manage User</a>
                                 </li>
                             </ul>
                         </div>
                     </li>
+                    @endif
                 </ul>
             </div>
             <!-- Sidebar -->
@@ -1661,11 +1665,13 @@
 <!-- dropzone min -->
 <script src="{{asset('/')}}admin/assets/libs/dropzone/dropzone-min.js"></script>
 
+<!-- init js -->
+<script src="{{asset('/')}}admin/assets/libs/summernote/form-editor.init.js"></script>
+
 <!-- App js -->
 <script src="{{asset('/')}}admin/assets/js/app.js"></script>
 
 </body>
-
 
 <!-- Mirrored from themesbrand.com/velzon/html/galaxy/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 01 Feb 2023 01:00:38 GMT -->
 </html>

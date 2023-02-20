@@ -4,6 +4,11 @@
     Dashboard
 @endsection
 
+@section('D-active')
+    active
+@endsection
+
+
 @section('body')
     <!-- start page title -->
     <div class="row">

@@ -55,50 +55,24 @@
                                         <div class="swiper-wrapper row cols-1 gutter-no">
                                             <div class="swiper-slide">
                                                 <figure class="product-image">
-                                                    <img src="{{asset('/')}}website/assets/images/products/default/1-800x900.jpg"
-                                                         data-zoom-image="{{asset('/')}}website/assets/images/products/default/1-800x900.jpg"
+                                                    <img src="{{asset($product->image)}}"
+                                                         data-zoom-image="{{asset($product->image)}}"
                                                          alt="Electronics Black Wrist Watch" width="800" height="900">
                                                 </figure>
                                             </div>
-                                            <div class="swiper-slide">
-                                                <figure class="product-image">
-                                                    <img src="{{asset('/')}}website/assets/images/products/default/2-800x900.jpg"
-                                                         data-zoom-image="{{asset('/')}}website/assets/images/products/default/2-800x900.jpg"
-                                                         alt="Electronics Black Wrist Watch" width="488" height="549">
-                                                </figure>
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <figure class="product-image">
-                                                    <img src="{{asset('/')}}website/assets/images/products/default/3-800x900.jpg"
-                                                         data-zoom-image="{{asset('/')}}website/assets/images/products/default/3-800x900.jpg"
-                                                         alt="Electronics Black Wrist Watch" width="800" height="900">
-                                                </figure>
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <figure class="product-image">
-                                                    <img src="{{asset('/')}}website/assets/images/products/default/4-800x900.jpg"
-                                                         data-zoom-image="{{asset('/')}}website/assets/images/products/default/4-800x900.jpg"
-                                                         alt="Electronics Black Wrist Watch" width="800" height="900">
-                                                </figure>
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <figure class="product-image">
-                                                    <img src="{{asset('/')}}website/assets/images/products/default/5-800x900.jpg"
-                                                         data-zoom-image="{{asset('/')}}website/assets/images/products/default/5-800x900.jpg"
-                                                         alt="Electronics Black Wrist Watch" width="800" height="900">
-                                                </figure>
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <figure class="product-image">
-                                                    <img src="{{asset('/')}}website/assets/images/products/default/6-800x900.jpg"
-                                                         data-zoom-image="{{asset('/')}}website/assets/images/products/default/6-800x900.jpg"
-                                                         alt="Electronics Black Wrist Watch" width="800" height="900">
-                                                </figure>
-                                            </div>
+                                            @foreach($product->otherImages as $otherImage)
+                                                <div class="swiper-slide">
+                                                    <figure class="product-image">
+                                                        <img src="{{asset($otherImage->image)}}"
+                                                             data-zoom-image="{{asset($otherImage->image)}}"
+                                                             alt="Electronics Black Wrist Watch" width="488" height="549">
+                                                    </figure>
+                                                </div>
+                                            @endforeach
                                         </div>
                                         <button class="swiper-button-next"></button>
                                         <button class="swiper-button-prev"></button>
-                                        <a href="#" class="product-gallery-btn product-image-full"><i class="w-icon-zoom"></i></a>
+                                        <a href="#" class="product-gallery-btn product-image-full d-none"><i class="w-icon-zoom"></i></a>
                                     </div>
                                     <div class="product-thumbs-wrap swiper-container" data-swiper-options="{
                                             'navigation': {
@@ -108,29 +82,15 @@
                                         }">
                                         <div class="product-thumbs swiper-wrapper row cols-4 gutter-sm">
                                             <div class="product-thumb swiper-slide">
-                                                <img src="{{asset('/')}}website/assets/images/products/default/1-800x900.jpg"
+                                                <img src="{{asset($product->image)}}"
                                                      alt="Product Thumb" width="800" height="900">
                                             </div>
-                                            <div class="product-thumb swiper-slide">
-                                                <img src="{{asset('/')}}website/assets/images/products/default/2-800x900.jpg"
-                                                     alt="Product Thumb" width="800" height="900">
-                                            </div>
-                                            <div class="product-thumb swiper-slide">
-                                                <img src="{{asset('/')}}website/assets/images/products/default/3-800x900.jpg"
-                                                     alt="Product Thumb" width="800" height="900">
-                                            </div>
-                                            <div class="product-thumb swiper-slide">
-                                                <img src="{{asset('/')}}website/assets/images/products/default/4-800x900.jpg"
-                                                     alt="Product Thumb" width="800" height="900">
-                                            </div>
-                                            <div class="product-thumb swiper-slide">
-                                                <img src="{{asset('/')}}website/assets/images/products/default/5-800x900.jpg"
-                                                     alt="Product Thumb" width="800" height="900">
-                                            </div>
-                                            <div class="product-thumb swiper-slide">
-                                                <img src="{{asset('/')}}website/assets/images/products/default/6-800x900.jpg"
-                                                     alt="Product Thumb" width="800" height="900">
-                                            </div>
+                                            @foreach($product->otherImages as $otherImage)
+                                                <div class="product-thumb swiper-slide">
+                                                    <img src="{{asset($otherImage->image)}}"
+                                                         alt="Product Thumb" width="800" height="900">
+                                                </div>
+                                            @endforeach
                                         </div>
                                         <button class="swiper-button-next"></button>
                                         <button class="swiper-button-prev"></button>
@@ -139,26 +99,34 @@
                             </div>
                             <div class="col-md-6 mb-4 mb-md-6">
                                 <div class="product-details" data-sticky-options="{'minWidth': 767}">
-                                    <h1 class="product-title">Electronics Black Wrist Watch</h1>
+                                    <h1 class="product-title">{{$product->name}}</h1>
                                     <div class="product-bm-wrapper">
                                         <figure class="brand">
-                                            <img src="{{asset('/')}}website/assets/images/products/brand/brand-1.jpg" alt="Brand"
+                                            <img src="{{asset($product->brand->image)}}" alt="Brand"
                                                  width="102" height="48" />
                                         </figure>
                                         <div class="product-meta">
                                             <div class="product-categories">
                                                 Category:
-                                                <span class="product-category"><a href="#">Electronics</a></span>
+                                                <span class="product-category"><a href="#">{{$product->category->name}}</a></span>
                                             </div>
-                                            <div class="product-sku">
-                                                SKU: <span>MS46891340</span>
+                                            <div class="product-categories">
+                                                Sub Category:
+                                                <span class="product-category"><a href="#">{{$product->subCategory->name}}</a></span>
+                                            </div>
+                                            <div class="product-categories">
+                                                Brand:
+                                                <span class="product-category"><a href="#">{{$product->brand->name}}</a></span>
                                             </div>
                                         </div>
                                     </div>
 
                                     <hr class="product-divider">
 
-                                    <div class="product-price"><ins class="new-price">$40.00</ins></div>
+                                    <div class="product-price">
+                                        <ins class="new-price">Tk {{$product->selling_price}}</ins>
+                                        <del class="old-price">Tk {{$product->regular_price}}</del>
+                                    </div>
 
                                     <div class="ratings-container">
                                         <div class="ratings-full">
@@ -171,30 +139,30 @@
 
                                     <div class="product-short-desc">
                                         <ul class="list-type-check list-style-none">
-                                            <li>Ultrices eros in cursus turpis massa cursus mattis.</li>
-                                            <li>Volutpat ac tincidunt vitae semper quis lectus.</li>
-                                            <li>Aliquam id diam maecenas ultricies mi eget mauris.</li>
+                                            {{$product->short_description}}
                                         </ul>
                                     </div>
 
                                     <hr class="product-divider">
 
-                                    <div class="fix-bottom product-sticky-content sticky-content">
-                                        <div class="product-form container">
-                                            <div class="product-qty-form">
-                                                <div class="input-group">
-                                                    <input class="quantity form-control" type="number" min="1"
-                                                           max="10000000">
-                                                    <button class="quantity-plus w-icon-plus"></button>
-                                                    <button class="quantity-minus w-icon-minus"></button>
+                                    <form action="{{route('cart', ['id' => $product->id])}}" method="POST">
+                                        @csrf
+                                        <div class="fix-bottom product-sticky-content sticky-content">
+                                            <div class="product-form container">
+                                                <div class="product-qty-form">
+                                                    <div class="input-group">
+                                                        <input class="quantity form-control" type="number" min="1" max="10000000" name="quantity"/>
+                                                        <button onclick="event.preventDefault();" class="quantity-plus w-icon-plus"></button>
+                                                        <button onclick="event.preventDefault();" class="quantity-minus w-icon-minus"></button>
+                                                    </div>
                                                 </div>
+                                                <button type="submit" class="btn btn-primary">
+                                                    <i class="w-icon-cart"></i>
+                                                    <span>Add to Cart</span>
+                                                </button>
                                             </div>
-                                            <a href="{{route('cart')}}" class="btn btn-primary">
-                                                <i class="w-icon-cart"></i>
-                                                <span>Add to Cart</span>
-                                            </a>
                                         </div>
-                                    </div>
+                                    </form>
 
                                     <div class="social-links-wrapper">
                                         <div class="social-links">
@@ -239,32 +207,7 @@
                                 <div class="tab-pane active" id="product-tab-description">
                                     <div class="row mb-4">
                                         <div class="col-md-6 mb-5">
-                                            <h4 class="title tab-pane-title font-weight-bold mb-2">Detail</h4>
-                                            <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                                sed do eiusmod tempor incididunt arcu cursus vitae congue mauris.
-                                                Sagittis id consectetur purus ut. Tellus rutrum tellus pelle Vel
-                                                pretium lectus quam id leo in vitae turpis massa.</p>
-                                            <ul class="list-type-check">
-                                                <li>Nunc nec porttitor turpis. In eu risus enim. In vitae mollis
-                                                    elit.
-                                                </li>
-                                                <li>Vivamus finibus vel mauris ut vehicula.</li>
-                                                <li>Nullam a magna porttitor, dictum risus nec, faucibus sapien.
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="col-md-6 mb-5">
-                                            <div class="banner banner-video product-video br-xs">
-                                                <figure class="banner-media">
-                                                    <a href="#">
-                                                        <img src="{{asset('/')}}website/assets/images/products/video-banner-610x300.jpg"
-                                                             alt="banner" width="610" height="300"
-                                                             style="background-color: #bebebe;">
-                                                    </a>
-                                                    <a class="btn-play-video btn-iframe"
-                                                       href="{{asset('/')}}website/assets/video/memory-of-a-woman.mp4"></a>
-                                                </figure>
-                                            </div>
+                                            {!! $product->long_description !!}
                                         </div>
                                     </div>
                                     <div class="row cols-md-3">
