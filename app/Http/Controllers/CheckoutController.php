@@ -20,7 +20,8 @@ class CheckoutController extends Controller
 
     public function newOrder(Request $request)
     {
-        if(Session::get('customer_id')){
+        if(Session::get('customer_id'))
+        {
             $this->validate($request, ['delivery_address'  => 'required']);
             $this->customer = Customer::find(Session::get('customer_id'));
         }
@@ -38,9 +39,20 @@ class CheckoutController extends Controller
             Session::put('customer_name', $this->customer->name);
         }
 
-        $this->order = Order::newOrder($request, $this->customer->id);
-        $this->orderDetail = OrderDetail::newOrderDetail($this->order->id);
-        return redirect('/complete-order')->with('message', 'Order has been placed successfully.');
+        if($request->payment_method == 1)
+        {
+            $this->order = Order::newOrder($request, $this->customer->id);
+            $this->orderDetail = OrderDetail::newOrderDetail($this->order->id);
+            return redirect('/complete-order')->with('message', 'Order has been placed successfully.');
+        }
+        else
+        {
+            return view('website.exampleHosted', [
+                'customer' => $this->customer,
+                'cart_products' => Cart::getContent(),
+                'delivery_address' => $request->delivery_address,
+            ]);
+        }
     }
 
     public function completeOrder()

@@ -134,10 +134,15 @@
                                     <label for="priceInput" class="form-label">Product Price (Tk)</label>
                                 </div>
                                 <div class="col-lg-9">
-                                    <div class="input-group">
-                                        <input type="number" class="form-control" id="priceInput" name="regular_price" placeholder="Regular Price"/>
-                                        <input type="number" class="form-control" id="priceInput" name="selling_price" placeholder="Selling Price"/>
-                                    </div>
+                                    <input type="number" class="form-control" id="priceInput" name="regular_price" placeholder="Regular Price"/>
+                                </div>
+                            </div>
+                            <div class="row mb-4">
+                                <div class="col-lg-3">
+                                    <label for="sellingPrice" class="form-label">Selling Price (Tk)</label>
+                                </div>
+                                <div class="col-lg-9">
+                                    <input value="0" type="number" class="form-control" id="sellingPrice" name="selling_price"/>
                                 </div>
                             </div>
                             <div class="row mb-4">

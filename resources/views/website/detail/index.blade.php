@@ -7,39 +7,20 @@
 @section('body')
     <!-- Start of Main -->
     <main class="main mb-10 pb-1">
+
         <!-- Start of Breadcrumb -->
-        <nav class="breadcrumb-nav container">
+        <nav class="breadcrumb-nav container mt-3">
             <ul class="breadcrumb bb-no">
                 <li><a href="demo1.html">Home</a></li>
                 <li>Products</li>
-            </ul>
-            <ul class="product-nav list-style-none">
-                <li class="product-nav-prev">
-                    <a href="#">
-                        <i class="w-icon-angle-left"></i>
-                    </a>
-                    <span class="product-nav-popup">
-                            <img src="{{asset('/')}}website/assets/images/products/product-nav-prev.jpg" alt="Product" width="110"
-                                 height="110" />
-                            <span class="product-name">Soft Sound Maker</span>
-                        </span>
-                </li>
-                <li class="product-nav-next">
-                    <a href="#">
-                        <i class="w-icon-angle-right"></i>
-                    </a>
-                    <span class="product-nav-popup">
-                            <img src="{{asset('/')}}website/assets/images/products/product-nav-next.jpg" alt="Product" width="110"
-                                 height="110" />
-                            <span class="product-name">Fabulous Sound Speaker</span>
-                        </span>
-                </li>
+                <li>Detail</li>
             </ul>
         </nav>
         <!-- End of Breadcrumb -->
 
         <!-- Start of Page Content -->
         <div class="page-content">
+            <h3 id="wishlistMsg" class="text-center mb-5" style="color: green"></h3>
             <div class="container">
                 <div class="row gutter-lg">
                     <div class="main-content">
@@ -124,8 +105,12 @@
                                     <hr class="product-divider">
 
                                     <div class="product-price">
-                                        <ins class="new-price">Tk {{$product->selling_price}}</ins>
-                                        <del class="old-price">Tk {{$product->regular_price}}</del>
+                                        @if($product->selling_price > 0 && $sale_products->count() > 0 && $sale->status == 1 && $sale->sale_date > Carbon\Carbon::now())
+                                            <ins class="new-price">Tk {{$product->selling_price}}</ins>
+                                            <del class="old-price">Tk {{$product->regular_price}}</del>
+                                        @else
+                                            <ins class="new-price">Tk {{$product->regular_price}}</ins>
+                                        @endif
                                     </div>
 
                                     <div class="ratings-container">
@@ -178,10 +163,15 @@
                                         </div>
                                         <span class="divider d-xs-show"></span>
                                         <div class="product-link-wrapper d-flex">
-                                            <a href="#"
-                                               class="btn-product-icon btn-wishlist w-icon-heart"><span></span></a>
-                                            <a href="#"
-                                               class="btn-product-icon btn-compare btn-icon-left w-icon-compare"><span></span></a>
+                                            <form id="wishlistForm">
+                                                @csrf
+                                                <input type="hidden" value="{{$product->id}}" name="product_id"/>
+                                                @if($wishlist && ($wishlist->user_id == session('customer_id')))
+                                                    <button id="wishlistBtn" type="submit" class="btn-product-icon w-icon-heart-full" title="Add to wishlist" style="cursor: pointer"></button>
+                                                @else
+                                                    <button id="wishlistBtn" type="submit" class="btn-product-icon w-icon-heart" title="Add to wishlist" style="cursor: pointer"></button>
+                                                @endif
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -206,7 +196,7 @@
                             <div class="tab-content">
                                 <div class="tab-pane active" id="product-tab-description">
                                     <div class="row mb-4">
-                                        <div class="col-md-6 mb-5">
+                                        <div class="col-md-9 mb-5">
                                             {!! $product->long_description !!}
                                         </div>
                                     </div>

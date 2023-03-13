@@ -45,39 +45,39 @@ class AdminOrderController extends Controller
     public function update(Request $request, $id)
     {
         $this->order = Order::find($id);
-        if($request->order_status == 'pending')
+        if($request->order_status == 'Pending')
         {
-            $this->order->order_status          = 'pending';
-            $this->order->delivery_status       = 'pending';
-            $this->order->payment_status        = 'pending';
+            $this->order->order_status          = 'Pending';
+            $this->order->delivery_status       = 'Pending';
+            $this->order->payment_status        = 'Pending';
             $this->order->save();
         }
-        else if($request->order_status == 'processing')
+        else if($request->order_status == 'Processing')
         {
-            $this->order->order_status          = 'processing';
+            $this->order->order_status          = 'Processing';
             $this->order->delivery_address      = $request->delivery_address;
-            $this->order->delivery_status       = 'processing';
-            $this->order->payment_status        = 'processing';
+            $this->order->delivery_status       = 'Processing';
+            $this->order->payment_status        = 'Processing';
             $this->order->save();
         }
-        else if($request->order_status == 'complete')
+        else if($request->order_status == 'Complete')
         {
-            $this->order->order_status          = 'complete';
+            $this->order->order_status          = 'Complete';
             $this->order->delivery_address      = $request->delivery_address;
-            $this->order->delivery_status       = 'complete';
+            $this->order->delivery_status       = 'Complete';
             $this->order->delivery_date         = date('Y-m-d');
             $this->order->delivery_timestamp    = strtotime(date('Y-m-d'));
-            $this->order->payment_status        = 'complete';
+            $this->order->payment_status        = 'Complete';
             $this->order->payment_date          = date('Y-m-d');
             $this->order->payment_timestamp     = strtotime(date('Y-m-d'));
             $this->order->payment_amount        = $request->payment_amount;
             $this->order->save();
         }
-        else if($request->order_status == 'cancel')
+        else if($request->order_status == 'Cancel')
         {
-            $this->order->order_status          = 'cancel';
-            $this->order->delivery_status       = 'cancel';
-            $this->order->payment_status        = 'cancel';
+            $this->order->order_status          = 'Cancel';
+            $this->order->delivery_status       = 'Cancel';
+            $this->order->payment_status        = 'Cancel';
             $this->order->save();
         }
         return redirect('/admin/order-manage')->with('message', 'Order Updated Successfully');

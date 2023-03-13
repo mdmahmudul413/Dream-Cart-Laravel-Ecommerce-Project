@@ -21,13 +21,13 @@ return new class extends Migration
             $table->integer('shipping_total');
             $table->text('order_date');
             $table->text('order_timestamp');
-            $table->string('order_status')->default('pending');
+            $table->string('order_status')->default('Pending');
             $table->text('delivery_address');
-            $table->string('delivery_status')->default('pending');
+            $table->string('delivery_status')->default('Pending');
             $table->text('delivery_date')->nullable();
             $table->text('delivery_timestamp')->nullable();
             $table->string('payment_method');
-            $table->string('payment_status')->default('pending');
+            $table->string('payment_status')->default('Pending');
             $table->text('payment_date')->nullable();
             $table->text('payment_timestamp')->nullable();
             $table->string('currency')->nullable();

@@ -6,10 +6,11 @@ use App\Models\Customer;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Session;
+use function Symfony\Component\Console\Style\success;
 
 class CustomerAuthController extends Controller
 {
-    private $customer;
+    private $customer, $email, $result = [];
     public function login()
     {
         return view('website.customer.login');
@@ -63,5 +64,27 @@ class CustomerAuthController extends Controller
         return view('website.customer.index', [
             'orders' => Order::where('customer_id', session('customer_id'))->get(),
         ]);
+    }
+
+    public function customerEmailCheck()
+    {
+        $this->email = $_GET['email'];
+
+        $this->customer = Customer::where('email', $this->email)->first();
+        if($this->customer)
+        {
+            $this->result = [
+                'message' => 'Email address already Exist',
+                'success' => false,
+            ];
+        }
+        else
+        {
+            $this->result = [
+                'message' => 'Email address available',
+                'success' => true,
+                ];
+        }
+        return response()->json($this->result);
     }
 }

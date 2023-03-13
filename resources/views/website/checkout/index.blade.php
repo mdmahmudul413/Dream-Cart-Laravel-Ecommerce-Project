@@ -35,7 +35,7 @@
                         <button type="submit" class="btn button btn-rounded btn-coupon mb-2" name="apply_coupon" value="Apply coupon">Apply Coupon</button>
                     </div>
                 </div>
-                <form class="form checkout-form" action="{{route('new.order')}}" method="post">
+                <form id="checkoutForm" class="form checkout-form" action="{{route('new.order')}}" method="post">
                     @csrf
                     <div class="row mb-9">
                         <div class="col-lg-7 pr-lg-4 mb-4">
@@ -55,27 +55,27 @@
                                     <div class="col-xs-12">
                                         <div class="form-group">
                                             <label>Full Name <span style="color: red;">*</span></label>
-                                            <input type="text" class="form-control form-control-md mb-0" name="name"/>
-                                            <span style="color: red;">{{$errors->has('name') ? $errors->first('name') : ''}}</span>
+                                            <input id="name" type="text" class="form-control form-control-md mb-0 text-dark" name="name"/>
+                                            <span id="nameError" style="color: red;">{{$errors->has('name') ? $errors->first('name') : ''}}</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col-xs-6">
                                         <label>Email address <span style="color: red;">*</span></label>
-                                        <input type="email" class="form-control form-control-md mb-0" name="email"/>
-                                        <span style="color: red;">{{$errors->has('email') ? $errors->first('email') : ''}}</span>
+                                        <input type="email" class="form-control form-control-md mb-0 text-dark" id="email" name="email"/>
+                                        <span id="emailError" style="color: red;">{{$errors->has('email') ? $errors->first('email') : ''}}</span>
                                     </div>
                                     <div class="col-xs-6 mb-3">
                                         <label>Contact Number <span style="color: red;">*</span></label>
-                                        <input type="number" class="form-control form-control-md mb-0" name="mobile"/>
-                                        <span style="color: red;">{{$errors->has('mobile') ? $errors->first('mobile') : ''}}</span>
+                                        <input id="mobile" type="number" class="form-control form-control-md mb-0 text-dark" name="mobile"/>
+                                        <span id="mobileError" style="color: red;">{{$errors->has('mobile') ? $errors->first('mobile') : ''}}</span>
                                     </div>
                                 </div>
                                 <div class="row gutter-sm mb-3">
                                     <div class="col-xs-12">
                                         <label>Delivery Address <span style="color: red;">*</span></label>
-                                        <textarea name="delivery_address" class="form-control mb-0" cols="30" rows="5"></textarea>
+                                        <textarea name="delivery_address" class="form-control mb-0 text-dark" cols="30" rows="5"></textarea>
                                         <span style="color: red;">{{$errors->has('delivery_address') ? $errors->first('delivery_address') : ''}}</span>
                                     </div>
                                 </div>
@@ -108,7 +108,7 @@
                                     <tfoot>
                                 </table>
                                 <div class="form-group place-order pt-6">
-                                    <button type="submit" class="btn btn-dark btn-block btn-rounded">Place Order</button>
+                                    <button id="placeOrderBtn" type="submit" class="btn btn-dark btn-block btn-rounded">Place Order</button>
                                 </div>
                             </div>
 

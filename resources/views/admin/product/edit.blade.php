@@ -132,8 +132,15 @@
                                 <div class="col-lg-9">
                                     <div class="input-group">
                                         <input value="{{$product->regular_price}}" type="number" class="form-control" id="priceInput" name="regular_price" placeholder="Regular Price"/>
-                                        <input value="{{$product->selling_price}}" type="number" class="form-control" id="priceInput" name="selling_price" placeholder="Selling Price"/>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="row mb-4">
+                                <div class="col-lg-3">
+                                    <label for="sellingPrice" class="form-label">Selling Price (Tk)</label>
+                                </div>
+                                <div class="col-lg-9">
+                                    <input value="{{$product->selling_price}}" type="number" class="form-control" id="priceInput" name="selling_price"/>
                                 </div>
                             </div>
                             <div class="row mb-4">

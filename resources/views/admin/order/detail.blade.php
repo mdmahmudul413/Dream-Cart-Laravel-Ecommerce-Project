@@ -64,7 +64,7 @@
                         </tr>
                         <tr>
                             <th>Payment Type</th>
-                            <td>{{$order->payment_method == 1 ? 'Cash On Delivery' : ''}}</td>
+                            <td>{{$order->payment_method == 1 ? 'Cash On Delivery' : 'Online'}}</td>
                         </tr>
                         <tr>
                             <th>Payment Status</th>

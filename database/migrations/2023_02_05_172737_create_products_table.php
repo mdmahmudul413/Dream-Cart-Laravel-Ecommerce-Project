@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('code');
             $table->integer('stock_amount');
             $table->integer('regular_price');
-            $table->integer('selling_price');
+            $table->integer('selling_price')->default(0);
             $table->text('short_description');
             $table->longText('long_description');
             $table->text('image');

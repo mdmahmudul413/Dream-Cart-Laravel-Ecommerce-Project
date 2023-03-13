@@ -5,6 +5,40 @@
 @endsection
 
 @section('body')
+    <style>
+        .flip-clock-container
+        {
+            --flip-bg-color: #b51a1a;
+            --flip-dots-color: #b51a1a;
+        }
+        .flip-clock-container [class|="flip-item"] .flip-digit > span::after, .flip-clock-container [class|="flip-item"] .flip-digit > span::before
+        {
+            font-size: 75px;
+        }
+        .flip-clock-container [class|="flip-item"] .flip-digit > span
+        {
+            width: 78%;
+            height: 75%;
+        }
+        .flip-clock-container [class|="flip-item"] .flip-digit > span::before
+        {
+            top: 0;
+            line-height: 122px;
+        }
+        .flip-clock-container [class|="flip-item"] .flip-digit
+        {
+             margin: 0;
+        }
+        .flip-clock-container [class|="flip-item"]::before
+        {
+            content: ":";
+            font-family: Consolas;
+            font-size: 105px;
+            color: var(--flip-dots-color);
+            line-height: 90px;
+            margin: 0px -10px 0px -32px;
+        }
+    </style>
     <!-- start of .main -->
     <main class="main">
         <div class="page-content">
@@ -17,141 +51,36 @@
                         }
                     }">
                     <div class="swiper-wrapper row cols-1 gutter-no">
-                        <div  class="swiper-slide banner banner-fixed intro-slide intro-slide1"
-                              style="background-image: url({{asset('/')}}website/assets/images/demos/demo7/slides/slide-1.jpg); background-color: #EEEDEB;">
-                            <div class="container">
-                                <div class="banner-content d-inline-block y-50">
-                                    <div class="slide-animate" data-animation-options="{
-                                            'name': 'fadeInUpShorter', 'duration': '1s'
-                                        }">
-                                        <h5 class="banner-subtitle text-uppercase font-weight-bold">
-                                            Performance &amp; Lifestyle
-                                        </h5>
-                                        <h3 class="banner-title ls-25 mb-6">
-                                            <span class="text-primary">Introducing</span>
-                                            Fashion lifestyle collection
-                                        </h3>
-                                        <a href="shop-banner-sidebar.html"
-                                           class="btn btn-dark btn-outline btn-rounded btn-icon-right">
-                                            Shop Now<i class="w-icon-long-arrow-right"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End of Intro Slide 1 -->
-                        <div class="swiper-slide banner banner-fixed intro-slide intro-slide2"
-                             style="background-image: url({{asset('/')}}website/assets/images/demos/demo7/slides/slide-2.jpg); background-color: #A9A9A9;">
-                            <div class="container text-right">
-                                <div class="banner-content y-50 d-inline-block">
-                                    <div class="slide-animate" data-animation-options="{
-                                            'name': 'zoomIn', 'duration': '1s'
-                                        }">
-                                        <h5 class="banner-subtitle text-uppercase font-weight-bold ls-25 mb-0">
-                                            Up To <strong class="text-primary text-capitalize">30% Off</strong>
-                                        </h5>
-                                        <h3 class="banner-title text-white text-uppercase ls-25">Calisthenics</h3>
-                                        <div class="banner-price-info text-white">Start at $125.00</div>
-                                        <a href="shop-banner-sidebar.html"
-                                           class="btn btn-white btn-outline btn-rounded btn-icon-right">
-                                            Shop Now<i class="w-icon-long-arrow-right"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End of Intro Slide 2 -->
-                        <div class="swiper-slide banner banner-fixed intro-slide intro-slide3"
-                             style="background-image: url({{asset('/')}}website/assets/images/demos/demo7/slides/slide-3.jpg); background-color: #F3F3F3;">
-                            <div class="container">
-                                <div class="banner-content y-50 d-inline-block">
-                                    <div class="slide-animate" data-animation-options="{
+                        @foreach($sliders as $slider)
+                            <div class="swiper-slide banner banner-fixed intro-slide intro-slide3"
+                                 style="background-image: url({{asset($slider->image)}}); background-color: #F3F3F3;">
+                                <div class="container">
+                                    <div class="banner-content y-50 d-inline-block">
+                                        <div class="slide-animate" data-animation-options="{
                                             'name': 'fadeInDownShorter', 'duration': '1s'
                                         }">
-                                        <h5 class="banner-subtitle text-uppercase text-primary font-weight-bold mb-1">
-                                            From Online Store
-                                        </h5>
-                                        <h3 class="banner-title text-uppercase ls-25">Sprimgchic</h3>
-                                        <h4 class="ls-25 mb-0">Recommend</h4>
-                                        <p class="ls-25">Free shipping on all orders over <span
-                                                class="text-dark">$99.00</span></p>
-                                        <a href="shop-banner-sidebar.html"
-                                           class="btn btn-dark btn-rounded btn-outline btn-icon-right">
-                                            Shop Now<i class="w-icon-long-arrow-right"></i>
-                                        </a>
+                                            <h5 class="banner-subtitle text-uppercase text-primary font-weight-bold mb-1">
+                                                From Online Store
+                                            </h5>
+                                            <h3 class="banner-title text-uppercase ls-25">{{$slider->title}}</h3>
+                                            <h4 class="ls-25 mb-0">{{$slider->sub_title}}</h4>
+                                            <p class="ls-25"><span class="text-dark" style="font-size: 30px; color: rgb(237, 115, 29)!important;">BDT {{$slider->price}}</span></p>
+                                            <a href="{{$slider->link}}"
+                                               class="btn btn-dark btn-rounded btn-outline btn-icon-right">
+                                                Shop Now<i class="w-icon-long-arrow-right"></i>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <!-- End of Intro Slide 3 -->
-                        <div class="swiper-slide banner banner-fixed intro-slide intro-slide1"
-                             style="background-image: url({{asset('/')}}website/assets/images/demos/demo7/slides/slide-1.jpg); background-color: #EEEDEB;">
-                            <div class="container">
-                                <div class="banner-content d-inline-block y-50">
-                                    <div class="slide-animate" data-animation-options="{
-                                            'name': 'fadeInUpShorter', 'duration': '1s'
-                                        }">
-                                        <h5 class="banner-subtitle text-uppercase font-weight-bold">
-                                            Performance &amp; Lifestyle
-                                        </h5>
-                                        <h3 class="banner-title ls-25 mb-6">
-                                            <span class="text-primary">Introducing</span>
-                                            Fashion lifestyle collection
-                                        </h3>
-                                        <a href="shop-banner-sidebar.html"
-                                           class="btn btn-dark btn-outline btn-rounded btn-icon-right">
-                                            Shop Now<i class="w-icon-long-arrow-right"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End of Intro Slide 1 -->
-                        <div class="swiper-slide banner banner-fixed intro-slide intro-slide3"
-                             style="background-image: url({{asset('/')}}website/assets/images/demos/demo7/slides/slide-3.jpg); background-color: #F3F3F3;">
-                            <div class="container">
-                                <div class="banner-content y-50 d-inline-block">
-                                    <div class="slide-animate" data-animation-options="{
-                                            'name': 'fadeInDownShorter', 'duration': '1s'
-                                        }">
-                                        <h5 class="banner-subtitle text-uppercase text-primary font-weight-bold mb-1">
-                                            From Online Store
-                                        </h5>
-                                        <h3 class="banner-title text-uppercase ls-25">Sprimgchic</h3>
-                                        <h4 class="ls-25 mb-0">Recommend</h4>
-                                        <p class="ls-25">Free shipping on all orders over <span
-                                                class="text-dark">$99.00</span></p>
-                                        <a href="shop-banner-sidebar.html"
-                                           class="btn btn-dark btn-rounded btn-outline btn-icon-right">
-                                            Shop Now<i class="w-icon-long-arrow-right"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End of Intro Slide 3 -->
+                        @endforeach
                     </div>
                     <div class="custom-dots swiper-img-dots appear-animate">
-                        <a href="#" class="active appear-animate">
-                            <img src="{{asset('/')}}website/assets/images/demos/demo7/slides/dot-1.png" alt="Slide Thumb" width="70"
-                                 height="70">
-                        </a>
-                        <a href="#" class="appear-animate">
-                            <img src="{{asset('/')}}website/assets/images/demos/demo7/slides/dot-2.png" alt="Slide Thumb" width="70"
-                                 height="70">
-                        </a>
-                        <a href="#" class="appear-animate">
-                            <img src="{{asset('/')}}website/assets/images/demos/demo7/slides/dot-3.png" alt="Slide Thumb" width="70"
-                                 height="70">
-                        </a>
-                        <a href="#" class="appear-animate">
-                            <img src="{{asset('/')}}website/assets/images/demos/demo7/slides/dot-4.png" alt="Slide Thumb" width="70"
-                                 height="70">
-                        </a>
-                        <a href="#" class="appear-animate">
-                            <img src="{{asset('/')}}website/assets/images/demos/demo7/slides/dot-3.png" alt="Slide Thumb" width="70"
-                                 height="70">
-                        </a>
+                        @foreach($sliders as $slider)
+                            <a href="#" class="appear-animate" style="animation-duration: 1.2s;height: 6px;border-radius: 2px;width: 60px; margin-bottom: 20px; background-color: rgb(237, 115, 29);">
+                                <span style="background-color: rgb(237, 115, 29); height: 100%; width: 100%;"></span>
+                            </a>
+                        @endforeach
                     </div>
                 </div>
             </section>
@@ -288,34 +217,42 @@
                 </div>
                 <!-- End of Category Banner 3Cols -->
 
-                <div class="title-link-wrapper title-deals appear-animate">
-                    <h2 class="title">Deals Hot Of The Day</h2>
-                    <a href="shop-boxed-banner.html" class="font-weight-bold ls-25">More Products<i
-                            class="w-icon-long-arrow-right"></i></a>
-                </div>
-                <div class="row appear-animate">
-                    <div class="col-lg-6 mb-4">
-                        <div class="product product-list br-xs mb-0">
+                @if($sale_products->count() > 0 && $sale->status == 1 && $sale->sale_date > Carbon\Carbon::now())
+                    <h2 class="title" style="color: red; font-size: 26px; display: block;">ON SALE TIMER</h2>
+                    <div class="">
+                        <ul class="flip-clock-container flip-1">
+                            <li class="flip-item-seconds">{{$seconds}}</li>
+                            <li class="flip-item-minutes">{{$minutes}}</li>
+                            <li class="flip-item-hours">{{$hours}}</li>
+                            <li class="flip-item-days">{{$days}}</li>
+                        </ul>
+                    </div>
+
+                <div class="row appear-animate" style="border: 2px solid red;padding: 6px; border-radius: 5px;">
+                    <div class="title-link-wrapper title-deals appear-animate" style="margin-bottom: 0;">
+                        <a style="margin-bottom: 0; font-size: 16px;" href="{{route('on.sale.products')}}" class="font-weight-bold ls-25">More Sale Products<i
+                                class="w-icon-long-arrow-right"></i></a>
+                    </div>
+                    <div class="row">
+                        @foreach($sale_products as $product)
+                            <div class="product product-slideup-content col-md-2 mt-3">
                             <figure class="product-media">
+                                <div class="product-label-group">
+                                    <label style="background-color: red;" class="product-label label-discount">Sale</label>
+                                </div>
                                 <a href="product-default.html">
-                                    <img src="{{asset('/')}}website/assets/images/demos/demo7/products/1-1.jpg" alt="Product" width="315"
-                                         height="355">
+                                    <img src="{{asset($product->image)}}" alt="Sale Product"
+                                         width="239" height="269">
                                 </a>
                                 <div class="product-action-vertical">
                                     <a href="#" class="btn-product-icon btn-quickview w-icon-search"
                                        title="Quick View"></a>
                                 </div>
-                                <div class="product-countdown-container">
-                                    <div class="product-countdown countdown-compact" data-until="2021, 9, 9"
-                                         data-format="DHMS" data-compact="false"
-                                         data-labels-short="Days, Hours, Mins, Secs">
-                                        00:00:00:00</div>
-                                </div>
                             </figure>
                             <div class="product-details">
-                                <h4 class="product-name">
-                                    <a href="product-default.html">Lorem ipsum dolor sit amet</a>
-                                </h4>
+                                <h3 class="product-name">
+                                    <a href="{{route('detail', ['id' => $product->id])}}">{{$product->name}}</a>
+                                </h3>
                                 <div class="ratings-container">
                                     <div class="ratings-full">
                                         <span class="ratings" style="width: 100%;"></span>
@@ -323,70 +260,25 @@
                                     </div>
                                     <a href="#" class="rating-reviews">(3 Reviews)</a>
                                 </div>
-                                <div class="product-price">$235.35 - $85.05</div>
-                                <ul class="product-desc">
-                                    <li>Aliquam id diam maecenas ultricies miile.</li>
-                                    <li>Volutpat ac tincidunt vitae semper quis le.</li>
-                                    <li>Ultrices eros in cursus turpis massa.</li>
-                                </ul>
-                                <div class="product-action">
-                                    <a href="#" class="btn-product btn-cart" title="Add to Cart"><i
-                                            class="w-icon-cart"></i> Add To Cart</a>
-                                    <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
-                                       title="Add to wishlist"></a>
-                                    <a href="#" class="btn-product-icon btn-compare w-icon-compare"
-                                       title="Compare"></a>
+                                <div class="product-price">
+                                    <ins class="new-price">BDT {{$product->selling_price}}</ins><del class="old-price">BDT {{$product->regular_price}}</del>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 mb-4">
-                        <div class="product product-list br-xs mb-0">
-                            <figure class="product-media">
-                                <a href="product-default.html">
-                                    <img src="{{asset('/')}}website/assets/images/demos/demo7/products/1-2.jpg" alt="Product" width="315"
-                                         height="355">
-                                </a>
-                                <div class="product-action-vertical">
-                                    <a href="#" class="btn-product-icon btn-quickview w-icon-search"
-                                       title="Quick View"></a>
-                                </div>
-                                <div class="product-countdown-container">
-                                    <div class="product-countdown countdown-compact" data-until="2021, 9, 9"
-                                         data-format="DHMS" data-compact="false"
-                                         data-labels-short="Days, Hours, Mins, Secs">
-                                        00:00:00:00</div>
-                                </div>
-                            </figure>
-                            <div class="product-details">
-                                <h4 class="product-name">
-                                    <a href="product-default.html">Lorem ipsum dolor sit amet</a>
-                                </h4>
-                                <div class="ratings-container">
-                                    <div class="ratings-full">
-                                        <span class="ratings" style="width: 100%;"></span>
-                                        <span class="tooltiptext tooltip-top"></span>
+                                <form action="{{route('cart', ['id' => $product->id])}}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="quantity" value="1"/>
+                                    <div class="product-hidden-details">
+                                        <div class="product-action">
+                                            <button type="submit" class="btn btn-primary btn-sm btn-block" title="Add to Cart">
+                                                <i class="w-icon-cart"></i><span> Add To Cart</span></button>
+                                        </div>
                                     </div>
-                                    <a href="#" class="rating-reviews">(3 Reviews)</a>
-                                </div>
-                                <div class="product-price">$235.35 - $85.05</div>
-                                <ul class="product-desc">
-                                    <li>Aliquam id diam maecenas ultricies miile.</li>
-                                    <li>Volutpat ac tincidunt vitae semper quis le.</li>
-                                    <li>Ultrices eros in cursus turpis massa.</li>
-                                </ul>
-                                <div class="product-action">
-                                    <a href="#" class="btn-product btn-cart" title="Add to Cart"><i
-                                            class="w-icon-cart"></i> Add To Cart</a>
-                                    <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
-                                       title="Add to wishlist"></a>
-                                    <a href="#" class="btn-product-icon btn-compare w-icon-compare"
-                                       title="Compare"></a>
-                                </div>
-                            </div>
+                                </form>
                         </div>
+                        @endforeach
                     </div>
                 </div>
+                @endif
                 <!-- End of Product List -->
 
                 <div class="row cols-xl-4 cols-lg-3 cols-sm-2 cols-1 mb-10 appear-animate">
@@ -603,641 +495,84 @@
                 </div>
                 <!-- End of Notificateion Wrapper -->
 
-                <h2 class="title title-underline pt-1 mb-4 appear-animate">Top Weekly Vendors</h2>
-                <div class="swiper-container swiper-theme shadow-swiper vendor-wrapper appear-animate"
-                     data-swiper-options="{
-                        'spaceBetween': 20,
-                        'slidesPerView': 1,
-                        'breakpoints': {
-                            '576': {
-                                'slidesPerView': 2
-                            },
-                            '768': {
-                                'slidesPerView': 3
-                            },
-                            '992': {
-                                'slidesPerView': 4
-                            }
-                        }
-                    }">
-                    <div class="swiper-wrapper row cols-xl-4 cols-md-3 cols-sm-2 cols-1">
-                        <div class="swiper-slide vendor-widget mb-0">
-                            <div class="vendor-widget-banner border-no">
-                                <figure class="vendor-banner">
-                                    <a href="vendor-dokan-store.html">
-                                        <img src="{{asset('/')}}website/assets/images/demos/demo7/vendors/1.jpg" alt="Vendor Banner"
-                                             width="625" height="300" style="background-color: #EFF0F2;" />
-                                    </a>
-                                </figure>
-                                <div class="vendor-details">
-                                    <figure class="vendor-logo">
-                                        <a href="vendor-dokan-store.html">
-                                            <img src="{{asset('/')}}website/assets/images/demos/demo7/vendors/logo-1.png" alt="Vendor Logo"
-                                                 width="90" height="90" />
-                                        </a>
-                                    </figure>
-                                    <div class="vendor-personal">
-                                        <h4 class="vendor-name">
-                                            <a href="vendor-dokan-store.html">Vendor 1</a>
-                                        </h4>
-                                        <div class="ratings-container">
-                                            <div class="ratings-full">
-                                                <span class="ratings" style="width: 100%;"></span>
-                                                <span class="tooltiptext tooltip-top"></span>
+                <div class="row deals-wrapper appear-animate mb-8" style="animation-duration: 1.2s; border: 2px solid #eae8e8; padding: 10px; border-radius: 5px;">
+                    <div class="col-lg-12 mb-4">
+                        <div class="single-product h-100 br-sm">
+                            <h4 class="title-sm title-underline font-weight-bolder ls-normal" style="font-size: 26px;">
+                                Top Categories
+                            </h4>
+                            <div class="swiper">
+                                <div class="swiper-container swiper-theme nav-top swiper-nav-lg" data-swiper-options="{
+                                    'spaceBetween': 20,
+                                    'slidesPerView': 1
+                                }">
+                                    <div class="swiper-wrapper row cols-1 gutter-no">
+                                        @foreach($cats as $category)
+                                        <div class="swiper-slide">
+                                            <div class="product product-single row">
+                                                <div class="col-md-12">
+                                                    <h4 class="title-sm font-weight-bolder ls-normal">
+                                                        {{$category->name}}
+                                                    </h4>
+                                                </div>
+                                                @php($sum = 0)
+                                                @foreach($category->products as $product)
+                                                    <div class="product product-slideup-content col-md-2 mt-3">
+                                                        <figure class="product-media">
+                                                            <a href="{{route('detail', ['id' => $product->id])}}">
+                                                                <img src="{{asset($product->image)}}" alt="Category Product"
+                                                                     width="239" height="269">
+                                                            </a>
+                                                            <div class="product-action-vertical">
+                                                                <a href="#" class="btn-product-icon btn-quickview w-icon-search"
+                                                                   title="Quick View"></a>
+                                                            </div>
+                                                        </figure>
+                                                        <div class="product-details">
+                                                            <h3 class="product-name">
+                                                                <a href="{{route('detail', ['id' => $product->id])}}">{{$product->name}}</a>
+                                                            </h3>
+                                                            <div class="ratings-container">
+                                                                <div class="ratings-full">
+                                                                    <span class="ratings" style="width: 100%;"></span>
+                                                                    <span class="tooltiptext tooltip-top"></span>
+                                                                </div>
+                                                                <a href="#" class="rating-reviews">(3 Reviews)</a>
+                                                            </div>
+                                                            <div class="product-price">
+                                                                @if($product->selling_price > 0 && $sale_products->count() > 0 && $sale->status == 1 && $sale->sale_date > Carbon\Carbon::now())
+                                                                    <ins class="new-price" style="font-size: 18px;">BDT {{$product->selling_price}}</ins><del class="old-price" style="font-size: 18px;">BDT {{$product->regular_price}}</del>
+                                                                @else
+                                                                    <ins class="new-price" style="font-size: 18px;">BDT {{$product->regular_price}}
+                                                                @endif
+                                                            </div>
+                                                        </div>
+                                                        <form action="{{route('cart', ['id' => $product->id])}}" method="POST">
+                                                            @csrf
+                                                            <input type="hidden" name="quantity" value="1"/>
+                                                            <div class="product-hidden-details">
+                                                                <div class="product-action">
+                                                                    <button type="submit" class="btn btn-primary btn-sm btn-block" title="Add to Cart">
+                                                                        <i class="w-icon-cart"></i><span> Add To Cart</span></button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    @php($sum = $sum + 1)
+                                                    <?php if($sum == $qty || $sum == 12){ break;} ?>
+                                                @endforeach
                                             </div>
-                                            <a href="#" class="rating-reviews">(3 Reviews)</a>
                                         </div>
-                                        <a href="vendor-dokan-store.html" class="visit-vendor-btn">Browse This
-                                            Vendor</a>
+                                        @endforeach
                                     </div>
-                                    <div class="vendor-products row cols-3 gutter-xs">
-                                        <div class="vendor-product">
-                                            <figure class="product-media">
-                                                <a href="product-default.html">
-                                                    <img src="{{asset('/')}}website/assets/images/demos/demo7/products/3-1.jpg"
-                                                         alt="Vendor Product" width="91" height="102" />
-                                                </a>
-                                            </figure>
-                                        </div>
-                                        <div class="vendor-product">
-                                            <figure class="product-media">
-                                                <a href="product-default.html">
-                                                    <img src="{{asset('/')}}website/assets/images/demos/demo7/products/3-2.jpg"
-                                                         alt="Vendor Product" width="91" height="102" />
-                                                </a>
-                                            </figure>
-                                        </div>
-                                        <div class="vendor-product">
-                                            <figure class="product-media">
-                                                <a href="product-default.html">
-                                                    <img src="{{asset('/')}}website/assets/images/demos/demo7/products/3-3.jpg"
-                                                         alt="Vendor Product" width="91" height="102" />
-                                                </a>
-                                            </figure>
-                                        </div>
-                                    </div>
+                                    <button class="swiper-button-prev"></button>
+                                    <button class="swiper-button-next"></button>
                                 </div>
                             </div>
-                            <!-- End of Vendor Widget Banner -->
-                        </div>
-                        <div class="swiper-slide vendor-widget mb-0">
-                            <div class="vendor-widget-banner border-no">
-                                <figure class="vendor-banner">
-                                    <a href="vendor-dokan-store.html">
-                                        <img src="{{asset('/')}}website/assets/images/demos/demo7/vendors/2.jpg" alt="Vendor Banner"
-                                             width="625" height="300" style="background-color: #525357;" />
-                                    </a>
-                                </figure>
-                                <div class="vendor-details">
-                                    <figure class="vendor-logo">
-                                        <a href="vendor-dokan-store.html">
-                                            <img src="{{asset('/')}}website/assets/images/demos/demo7/vendors/logo-2.png" alt="Vendor Logo"
-                                                 width="90" height="90" />
-                                        </a>
-                                    </figure>
-                                    <div class="vendor-personal">
-                                        <h4 class="vendor-name">
-                                            <a href="vendor-dokan-store.html">Vendor 2</a>
-                                        </h4>
-                                        <div class="ratings-container">
-                                            <div class="ratings-full">
-                                                <span class="ratings" style="width: 100%;"></span>
-                                                <span class="tooltiptext tooltip-top"></span>
-                                            </div>
-                                            <a href="#" class="rating-reviews">(6 Reviews)</a>
-                                        </div>
-                                        <a href="vendor-dokan-store.html" class="visit-vendor-btn">Browse This
-                                            Vendor</a>
-                                    </div>
-                                    <div class="vendor-products row cols-3 gutter-xs">
-                                        <div class="vendor-product">
-                                            <figure class="product-media">
-                                                <a href="product-default.html">
-                                                    <img src="{{asset('/')}}website/assets/images/demos/demo7/products/3-4.jpg"
-                                                         alt="Vendor Product" width="91" height="102" />
-                                                </a>
-                                            </figure>
-                                        </div>
-                                        <div class="vendor-product">
-                                            <figure class="product-media">
-                                                <a href="product-default.html">
-                                                    <img src="{{asset('/')}}website/assets/images/demos/demo7/products/3-5.jpg"
-                                                         alt="Vendor Product" width="91" height="102" />
-                                                </a>
-                                            </figure>
-                                        </div>
-                                        <div class="vendor-product">
-                                            <figure class="product-media">
-                                                <a href="product-default.html">
-                                                    <img src="{{asset('/')}}website/assets/images/demos/demo7/products/3-6.jpg"
-                                                         alt="Vendor Product" width="91" height="102" />
-                                                </a>
-                                            </figure>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End of Vendor Widget Banner -->
-                        </div>
-                        <div class="swiper-slide vendor-widget mb-0">
-                            <div class="vendor-widget-banner border-no">
-                                <figure class="vendor-banner">
-                                    <a href="vendor-dokan-store.html">
-                                        <img src="{{asset('/')}}website/assets/images/demos/demo7/vendors/3.jpg" alt="Vendor Banner"
-                                             width="625" height="300" style="background-color: #C7D0D9;" />
-                                    </a>
-                                </figure>
-                                <div class="vendor-details">
-                                    <figure class="vendor-logo">
-                                        <a href="vendor-dokan-store.html">
-                                            <img src="{{asset('/')}}website/assets/images/demos/demo7/vendors/logo-3.png" alt="Vendor Logo"
-                                                 width="90" height="90" />
-                                        </a>
-                                    </figure>
-                                    <div class="vendor-personal">
-                                        <h4 class="vendor-name">
-                                            <a href="vendor-dokan-store.html">Vendor 3</a>
-                                        </h4>
-                                        <div class="ratings-container">
-                                            <div class="ratings-full">
-                                                <span class="ratings" style="width: 100%;"></span>
-                                                <span class="tooltiptext tooltip-top"></span>
-                                            </div>
-                                            <a href="#" class="rating-reviews">(4 Reviews)</a>
-                                        </div>
-                                        <a href="vendor-dokan-store.html" class="visit-vendor-btn">Browse This
-                                            Vendor</a>
-                                    </div>
-                                    <div class="vendor-products row cols-3 gutter-xs">
-                                        <div class="vendor-product">
-                                            <figure class="product-media">
-                                                <a href="product-default.html">
-                                                    <img src="{{asset('/')}}website/assets/images/demos/demo7/products/3-7.jpg"
-                                                         alt="Vendor Product" width="91" height="102" />
-                                                </a>
-                                            </figure>
-                                        </div>
-                                        <div class="vendor-product">
-                                            <figure class="product-media">
-                                                <a href="product-default.html">
-                                                    <img src="{{asset('/')}}website/assets/images/demos/demo7/products/3-8.jpg"
-                                                         alt="Vendor Product" width="91" height="102" />
-                                                </a>
-                                            </figure>
-                                        </div>
-                                        <div class="vendor-product">
-                                            <figure class="product-media">
-                                                <a href="product-default.html">
-                                                    <img src="{{asset('/')}}website/assets/images/demos/demo7/products/3-9.jpg"
-                                                         alt="Vendor Product" width="91" height="102" />
-                                                </a>
-                                            </figure>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End of Vendor Widget Banner -->
-                        </div>
-                        <div class="swiper-slide vendor-widget mb-0">
-                            <div class="vendor-widget-banner border-no">
-                                <figure class="vendor-banner">
-                                    <a href="vendor-dokan-store.html">
-                                        <img src="{{asset('/')}}website/assets/images/demos/demo7/vendors/4.jpg" alt="Vendor Banner"
-                                             width="625" height="300" style="background-color: #363435;" />
-                                    </a>
-                                </figure>
-                                <div class="vendor-details">
-                                    <figure class="vendor-logo">
-                                        <a href="vendor-dokan-store.html">
-                                            <img src="{{asset('/')}}website/assets/images/demos/demo7/vendors/logo-4.png" alt="Vendor Logo"
-                                                 width="90" height="90" />
-                                        </a>
-                                    </figure>
-                                    <div class="vendor-personal">
-                                        <h4 class="vendor-name">
-                                            <a href="vendor-dokan-store.html">Vendor 4</a>
-                                        </h4>
-                                        <div class="ratings-container">
-                                            <div class="ratings-full">
-                                                <span class="ratings" style="width: 100%;"></span>
-                                                <span class="tooltiptext tooltip-top"></span>
-                                            </div>
-                                            <a href="#" class="rating-reviews">(7 Reviews)</a>
-                                        </div>
-                                        <a href="vendor-dokan-store.html" class="visit-vendor-btn">Browse This
-                                            Vendor</a>
-                                    </div>
-                                    <div class="vendor-products row cols-3 gutter-xs">
-                                        <div class="vendor-product">
-                                            <figure class="product-media">
-                                                <a href="product-default.html">
-                                                    <img src="{{asset('/')}}website/assets/images/demos/demo7/products/3-10.jpg"
-                                                         alt="Vendor Product" width="91" height="102" />
-                                                </a>
-                                            </figure>
-                                        </div>
-                                        <div class="vendor-product">
-                                            <figure class="product-media">
-                                                <a href="product-default.html">
-                                                    <img src="{{asset('/')}}website/assets/images/demos/demo7/products/3-11.jpg"
-                                                         alt="Vendor Product" width="91" height="102" />
-                                                </a>
-                                            </figure>
-                                        </div>
-                                        <div class="vendor-product">
-                                            <figure class="product-media">
-                                                <a href="product-default.html">
-                                                    <img src="{{asset('/')}}website/assets/images/demos/demo7/products/3-12.jpg"
-                                                         alt="Vendor Product" width="91" height="102" />
-                                                </a>
-                                            </figure>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End of Vendor Widget Banner -->
-                        </div>
-                    </div>
-                    <div class="swiper-pagination"></div>
-                </div>
-                <!-- End of Vendor -->
-
-                <div class="title-link-wrapper mb-4 appear-animate">
-                    <h2 class="title">Top Categories</h2>
-                    <a href="shop-boxed-banner.html" class="text-capitalize font-weight-bold">More Products<i
-                            class="w-icon-long-arrow-right"></i></a>
-                </div>
-                <div class="row mb-7 category-products-wrapper appear-animate">
-                    <div class="col-xl-3 col-lg-4 col-md-5">
-                        <ul class="category-wrapper list-style-none">
-                            <li><a href="shop-banner-sidebar.html"><i class="w-icon-tshirt"></i>Clothing &amp;
-                                    Apparel</a></li>
-                            <li><a href="shop-banner-sidebar.html"><i class="w-icon-camera"></i>Digital Cameras</a>
-                            </li>
-                            <li><a href="shop-banner-sidebar.html"><i class="w-icon-mobile"></i>Smartphones</a></li>
-                            <li><a href="shop-banner-sidebar.html"><i class="w-icon-sofa"></i>Home &amp;
-                                    Furnitures</a></li>
-                            <li><a href="shop-banner-sidebar.html"><i class="w-icon-computer"></i>Computers &amp;
-                                    Laptops</a></li>
-                            <li><a href="shop-banner-sidebar.html"><i class="w-icon-basketball"></i>Sport</a></li>
-                            <li><a href="shop-banner-sidebar.html"><i class="w-icon-bow"></i>Toys &amp; Baby</a>
-                            </li>
-                            <li><a href="shop-banner-sidebar.html"><i class="w-icon-ruby"></i>Accessories &amp;
-                                    Jewelry</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-xl-9 col-lg-8 col-md-7">
-                        <div class="swiper-container swiper-theme "
-                             data-swiper-options="{
-                                'spaceBetween': 20,
-                                'slidesPerView': 2,
-                                'breakpoints': {
-                                    '768': {
-                                        'slidesPerView': 2
-                                    },
-                                    '992': {
-                                        'slidesPerView': 3
-                                    },
-                                    '1200': {
-                                        'slidesPerView': 4
-                                    },
-                                    '1400': {
-                                        'slidesPerView': 5
-                                    }
-                                }
-                            }">
-                            <div class="swiper-wrapper row cols-xl-5 cols-lg-4 cols-md-3 cols-2">
-                                <div class="swiper-slide product-col">
-                                    <div class="product product-slideup-content">
-                                        <figure class="product-media">
-                                            <a href="product-default.html">
-                                                <img src="{{asset('/')}}website/assets/images/demos/demo7/products/4-1.jpg" alt="Product"
-                                                     width="187" height="210">
-                                            </a>
-                                            <div class="product-action-vertical">
-                                                <a href="#" class="btn-product-icon btn-quickview w-icon-search"
-                                                   title="Quick View"></a>
-                                            </div>
-                                        </figure>
-                                        <div class="product-details">
-                                            <h3 class="product-name">
-                                                <a href="product-default.html">Colorful Flavoring Box</a>
-                                            </h3>
-                                            <div class="product-price">
-                                                <ins class="new-price">$25.70</ins>
-                                            </div>
-                                        </div>
-                                        <div class="product-hidden-details">
-                                            <div class="product-action">
-                                                <a href="#" class="btn-product btn-cart" title="Add to Cart">
-                                                    <i class="w-icon-cart"></i><span>Add To Cart</span></a>
-                                                <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
-                                                   title="Add to wishlist"></a>
-                                                <a href="#" class="btn-product-icon btn-compare w-icon-compare"
-                                                   title="Compare"></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End of Product Slideup Content -->
-                                    <div class="product product-slideup-content">
-                                        <figure class="product-media">
-                                            <a href="product-default.html">
-                                                <img src="{{asset('/')}}website/assets/images/demos/demo7/products/4-2.jpg" alt="Product"
-                                                     width="187" height="210">
-                                            </a>
-                                            <div class="product-action-vertical">
-                                                <a href="#" class="btn-product-icon btn-quickview w-icon-search"
-                                                   title="Quick View"></a>
-                                            </div>
-                                        </figure>
-                                        <div class="product-details">
-                                            <h3 class="product-name">
-                                                <a href="product-default.html">Men's Suede Belt</a>
-                                            </h3>
-                                            <div class="product-price">
-                                                <ins class="new-price">$73.71</ins><del class="old-price">$78.04</del>
-                                            </div>
-                                        </div>
-                                        <div class="product-hidden-details">
-                                            <div class="product-action">
-                                                <a href="#" class="btn-product btn-cart" title="Add to Cart">
-                                                    <i class="w-icon-cart"></i><span>Add To Cart</span></a>
-                                                <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
-                                                   title="Add to wishlist"></a>
-                                                <a href="#" class="btn-product-icon btn-compare w-icon-compare"
-                                                   title="Compare"></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End of Product Slideup Content -->
-                                </div>
-                                <!-- End of Product Col -->
-                                <div class="swiper-slide product-col">
-                                    <div class="product product-slideup-content">
-                                        <figure class="product-media">
-                                            <a href="product-default.html">
-                                                <img src="{{asset('/')}}website/assets/images/demos/demo7/products/4-3.jpg" alt="Product"
-                                                     width="187" height="210">
-                                            </a>
-                                            <div class="product-action-vertical">
-                                                <a href="#" class="btn-product-icon btn-quickview w-icon-search"
-                                                   title="Quick View"></a>
-                                            </div>
-                                        </figure>
-                                        <div class="product-details">
-                                            <h3 class="product-name">
-                                                <a href="product-default.html">Plastic Cup</a>
-                                            </h3>
-                                            <div class="product-price">
-                                                <ins class="new-price">$16.00</ins>
-                                            </div>
-                                        </div>
-                                        <div class="product-hidden-details">
-                                            <div class="product-action">
-                                                <a href="#" class="btn-product btn-cart" title="Add to Cart">
-                                                    <i class="w-icon-cart"></i><span>Add To Cart</span></a>
-                                                <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
-                                                   title="Add to wishlist"></a>
-                                                <a href="#" class="btn-product-icon btn-compare w-icon-compare"
-                                                   title="Compare"></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End of Product Slideup Content -->
-                                    <div class="product product-slideup-content">
-                                        <figure class="product-media">
-                                            <a href="product-default.html">
-                                                <img src="{{asset('/')}}website/assets/images/demos/demo7/products/4-4.jpg" alt="Product"
-                                                     width="187" height="210">
-                                            </a>
-                                            <div class="product-action-vertical">
-                                                <a href="#" class="btn-product-icon btn-quickview w-icon-search"
-                                                   title="Quick View"></a>
-                                            </div>
-                                        </figure>
-                                        <div class="product-details">
-                                            <h3 class="product-name">
-                                                <a href="product-default.html">Headkerchief</a>
-                                            </h3>
-                                            <div class="product-price">
-                                                <ins class="new-price">$73.71</ins><del class="old-price">$78.04</del>
-                                            </div>
-                                        </div>
-                                        <div class="product-hidden-details">
-                                            <div class="product-action">
-                                                <a href="#" class="btn-product btn-cart" title="Add to Cart">
-                                                    <i class="w-icon-cart"></i><span>Add To Cart</span></a>
-                                                <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
-                                                   title="Add to wishlist"></a>
-                                                <a href="#" class="btn-product-icon btn-compare w-icon-compare"
-                                                   title="Compare"></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End of Product Slideup Content -->
-                                </div>
-                                <!-- End of Product Col -->
-                                <div class="swiper-slide product-col">
-                                    <div class="product product-slideup-content">
-                                        <figure class="product-media">
-                                            <a href="product-default.html">
-                                                <img src="{{asset('/')}}website/assets/images/demos/demo7/products/4-5.jpg" alt="Product"
-                                                     width="187" height="210">
-                                            </a>
-                                            <div class="product-action-vertical">
-                                                <a href="#" class="btn-product-icon btn-quickview w-icon-search"
-                                                   title="Quick View"></a>
-                                            </div>
-                                        </figure>
-                                        <div class="product-details">
-                                            <h3 class="product-name">
-                                                <a href="product-default.html">Mini Wireless Earphone</a>
-                                            </h3>
-                                            <div class="product-price">
-                                                <ins class="new-price">$49.99</ins>
-                                            </div>
-                                        </div>
-                                        <div class="product-hidden-details">
-                                            <div class="product-action">
-                                                <a href="#" class="btn-product btn-cart" title="Add to Cart">
-                                                    <i class="w-icon-cart"></i><span>Add To Cart</span></a>
-                                                <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
-                                                   title="Add to wishlist"></a>
-                                                <a href="#" class="btn-product-icon btn-compare w-icon-compare"
-                                                   title="Compare"></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End of Product Slideup Content -->
-                                    <div class="product product-slideup-content">
-                                        <figure class="product-media">
-                                            <a href="product-default.html">
-                                                <img src="{{asset('/')}}website/assets/images/demos/demo7/products/4-6.jpg" alt="Product"
-                                                     width="187" height="210">
-                                            </a>
-                                            <div class="product-action-vertical">
-                                                <a href="#" class="btn-product-icon btn-quickview w-icon-search"
-                                                   title="Quick View"></a>
-                                            </div>
-                                        </figure>
-                                        <div class="product-details">
-                                            <h3 class="product-name">
-                                                <a href="product-default.html">Portable Charger</a>
-                                            </h3>
-                                            <div class="product-price">
-                                                <ins class="new-price">$25.00</ins>
-                                            </div>
-                                        </div>
-                                        <div class="product-hidden-details">
-                                            <div class="product-action">
-                                                <a href="#" class="btn-product btn-cart" title="Add to Cart">
-                                                    <i class="w-icon-cart"></i><span>Add To Cart</span></a>
-                                                <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
-                                                   title="Add to wishlist"></a>
-                                                <a href="#" class="btn-product-icon btn-compare w-icon-compare"
-                                                   title="Compare"></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End of Product Slideup Content -->
-                                </div>
-                                <!-- End of Product Col -->
-                                <div class="swiper-slide product-col">
-                                    <div class="product product-slideup-content">
-                                        <figure class="product-media">
-                                            <a href="product-default.html">
-                                                <img src="{{asset('/')}}website/assets/images/demos/demo7/products/4-7.jpg" alt="Product"
-                                                     width="187" height="210">
-                                            </a>
-                                            <div class="product-action-vertical">
-                                                <a href="#" class="btn-product-icon btn-quickview w-icon-search"
-                                                   title="Quick View"></a>
-                                            </div>
-                                        </figure>
-                                        <div class="product-details">
-                                            <h3 class="product-name">
-                                                <a href="product-default.html">Red Cap Sound Marker</a>
-                                            </h3>
-                                            <div class="product-price">
-                                                <ins class="new-price">$65.89 - $69.99</ins>
-                                            </div>
-                                        </div>
-                                        <div class="product-hidden-details">
-                                            <div class="product-action">
-                                                <a href="#" class="btn-product btn-cart" title="Add to Cart">
-                                                    <i class="w-icon-cart"></i><span>Add To Cart</span></a>
-                                                <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
-                                                   title="Add to wishlist"></a>
-                                                <a href="#" class="btn-product-icon btn-compare w-icon-compare"
-                                                   title="Compare"></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End of Product Slideup Content -->
-                                    <div class="product product-slideup-content">
-                                        <figure class="product-media">
-                                            <a href="product-default.html">
-                                                <img src="{{asset('/')}}website/assets/images/demos/demo7/products/4-8.jpg" alt="Product"
-                                                     width="187" height="210">
-                                            </a>
-                                            <div class="product-action-vertical">
-                                                <a href="#" class="btn-product-icon btn-quickview w-icon-search"
-                                                   title="Quick View"></a>
-                                            </div>
-                                        </figure>
-                                        <div class="product-details">
-                                            <h3 class="product-name">
-                                                <a href="product-default.html">Perfect Classic Hat</a>
-                                            </h3>
-                                            <div class="product-price">
-                                                <ins class="new-price">$69.99</ins><del class="old-price">$84.16</del>
-                                            </div>
-                                        </div>
-                                        <div class="product-hidden-details">
-                                            <div class="product-action">
-                                                <a href="#" class="btn-product btn-cart" title="Add to Cart">
-                                                    <i class="w-icon-cart"></i><span>Add To Cart</span></a>
-                                                <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
-                                                   title="Add to wishlist"></a>
-                                                <a href="#" class="btn-product-icon btn-compare w-icon-compare"
-                                                   title="Compare"></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End of Product Slideup Content -->
-                                </div>
-                                <!-- End of Product Col -->
-                                <div class="swiper-slide product-col">
-                                    <div class="product product-slideup-content">
-                                        <figure class="product-media">
-                                            <a href="product-default.html">
-                                                <img src="{{asset('/')}}website/assets/images/demos/demo7/products/4-9.jpg" alt="Product"
-                                                     width="187" height="210">
-                                            </a>
-                                            <div class="product-action-vertical">
-                                                <a href="#" class="btn-product-icon btn-quickview w-icon-search"
-                                                   title="Quick View"></a>
-                                            </div>
-                                        </figure>
-                                        <div class="product-details">
-                                            <h3 class="product-name">
-                                                <a href="product-default.html">Roller Skate</a>
-                                            </h3>
-                                            <div class="product-price">
-                                                <ins class="new-price">$66.99</ins>
-                                            </div>
-                                        </div>
-                                        <div class="product-hidden-details">
-                                            <div class="product-action">
-                                                <a href="#" class="btn-product btn-cart" title="Add to Cart">
-                                                    <i class="w-icon-cart"></i><span>Add To Cart</span></a>
-                                                <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
-                                                   title="Add to wishlist"></a>
-                                                <a href="#" class="btn-product-icon btn-compare w-icon-compare"
-                                                   title="Compare"></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End of Product Slideup Content -->
-                                    <div class="product product-slideup-content">
-                                        <figure class="product-media">
-                                            <a href="product-default.html">
-                                                <img src="{{asset('/')}}website/assets/images/demos/demo7/products/4-10.jpg" alt="Product"
-                                                     width="187" height="210">
-                                            </a>
-                                            <div class="product-action-vertical">
-                                                <a href="#" class="btn-product-icon btn-quickview w-icon-search"
-                                                   title="Quick View"></a>
-                                            </div>
-                                        </figure>
-                                        <div class="product-details">
-                                            <h3 class="product-name">
-                                                <a href="product-default.html">Men's Black Watch</a>
-                                            </h3>
-                                            <div class="product-price">
-                                                <ins class="new-price">$232.62</ins>
-                                            </div>
-                                        </div>
-                                        <div class="product-hidden-details">
-                                            <div class="product-action">
-                                                <a href="#" class="btn-product btn-cart" title="Add to Cart">
-                                                    <i class="w-icon-cart"></i><span>Add To Cart</span></a>
-                                                <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
-                                                   title="Add to wishlist"></a>
-                                                <a href="#" class="btn-product-icon btn-compare w-icon-compare"
-                                                   title="Compare"></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End of Product Slideup Content -->
-                                </div>
-                                <!-- End of Product Col -->
-                            </div>
-                            <div class="swiper-pagination"></div>
                         </div>
                     </div>
                 </div>
-                <!-- End of Category Products -->
+                <!-- End of Deals Wrapper -->
 
                 <div class="row category-banner-2cols appear-animate">
                     <div class="col-md-6 mb-4">
@@ -1310,6 +645,7 @@
                     </div>
                     <div class="col-xl-9 col-lg-8 col-md-7">
                             <div class="row">
+                                @php($sum = 1)
                                 @foreach($products as $product)
                                     <div class="product product-slideup-content col-md-3">
                                         <figure class="product-media">
@@ -1334,24 +670,25 @@
                                                 <a href="#" class="rating-reviews">(3 Reviews)</a>
                                             </div>
                                             <div class="product-price">
-                                                <ins class="new-price">Tk {{$product->selling_price}}</ins><del class="old-price">Tk {{$product->regular_price}}</del>
+                                                @if($product->selling_price > 0 && $sale_products->count() > 0 && $sale->status == 1 && $sale->sale_date > Carbon\Carbon::now())
+                                                    <ins class="new-price" style="font-size: 18px;">BDT {{$product->selling_price}}</ins><del class="old-price" style="font-size: 18px;">BDT {{$product->regular_price}}</del>
+                                                @else
+                                                    <ins class="new-price" style="font-size: 18px;">BDT {{$product->regular_price}}
+                                                @endif
                                             </div>
                                         </div>
-                                        <form action="{{route('cart', ['id' => $product->id])}}" method="POST">
-                                            @csrf
-                                            <input type="hidden" name="quantity" value="1"/>
-                                            <div class="product-hidden-details">
-                                                <div class="product-action">
-                                                    <button type="submit" class="btn btn-primary btn-sm" title="Add to Cart">
-                                                        <i class="w-icon-cart"></i><span> Add To Cart</span></button>
-                                                    <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
-                                                       title="Add to wishlist"></a>
-                                                    <a href="#" class="btn-product-icon btn-compare w-icon-compare"
-                                                       title="Compare"></a>
+                                            <form action="{{route('cart', ['id' => $product->id])}}" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="quantity" value="1"/>
+                                                <div class="product-hidden-details">
+                                                    <div class="product-action">
+                                                        <button type="submit" class="btn btn-primary btn-sm btn-block" title="Add to Cart">
+                                                            <i class="w-icon-cart"></i><span> Add To Cart</span></button>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </form>
+                                            </form>
                                     </div>
+                                @php($sum = $sum + 1)
                                     <!-- End of Product Slideup Content -->
                                 @endforeach
                             </div>

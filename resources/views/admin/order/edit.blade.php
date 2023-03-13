@@ -54,10 +54,10 @@
                                 <div class="col-lg-9">
                                     <select name="order_status" class="form-control">
                                         <option value=""> -- Select Order Status -- </option>
-                                        <option value="pending" {{$order->order_status == 'pending' ? 'selected' : ''}}>Pending</option>
-                                        <option value="processing" {{$order->order_status == 'processing' ? 'selected' : ''}}>Processing</option>
-                                        <option value="complete" {{$order->order_status == 'complete' ? 'selected' : ''}}>Complete</option>
-                                        <option value="cancel" {{$order->order_status == 'cancel' ? 'selected' : ''}}>Cancel</option>
+                                        <option value="Pending" {{$order->order_status == 'Pending' ? 'selected' : ''}}>Pending</option>
+                                        <option value="Processing" {{$order->order_status == 'Processing' ? 'selected' : ''}}>Processing</option>
+                                        <option value="Complete" {{$order->order_status == 'Complete' ? 'selected' : ''}}>Complete</option>
+                                        <option value="Cancel" {{$order->order_status == 'Cancel' ? 'selected' : ''}}>Cancel</option>
                                     </select>
                                 </div>
                             </div>
@@ -80,7 +80,7 @@
                             <div class="form-group row mb-4">
                                 <label class="col-sm-3 col-form-label">Payment Amount (Tk)</label>
                                 <div class="col-sm-9">
-                                    <input type="number" class="form-control" name="payment_amount" value="{{$order->payment_amount}}"/>
+                                    <input type="number" class="form-control" name="payment_amount" value="{{$order->order_total}}"/>
                                 </div>
                             </div>
                             <div class="row mb-3">

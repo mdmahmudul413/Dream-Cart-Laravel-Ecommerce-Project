@@ -29,8 +29,8 @@
     <link href="{{asset('/')}}admin/assets/css/app.min.css" rel="stylesheet" type="text/css" />
     <!-- custom Css-->
     <link href="{{asset('/')}}admin/assets/css/custom.min.css" rel="stylesheet" type="text/css" />
-
-
+    <!-- select 2 Css-->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
     <!-- date table-->
     <link rel="stylesheet" href="{{asset('/')}}admin/assets/datatable/jquery.dataTables.min.css">
@@ -910,6 +910,45 @@
                         </div>
                     </li>
                     @endif
+                    <li class="nav-item">
+                        <a class="nav-link menu-link" href="#homeSlider" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarForms">
+                            <i class="ri-home-2-line"></i> <span>Home Slider Module</span>
+                        </a>
+                        <div class="collapse menu-dropdown @yield('hs-d-block')" id="homeSlider">
+                            <ul class="nav nav-sm flex-column">
+                                <li class="nav-item">
+                                    <a href="{{route('slider.add')}}" class="nav-link @yield('HSA-active')">Add Home Slider</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{route('slider.manage')}}" class="nav-link @yield('HSM-active')">Manage Home Slider</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link menu-link" href="#homeCategories" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarForms">
+                            <i class="ri-book-2-line"></i> <span>Home Categories</span>
+                        </a>
+                        <div class="collapse menu-dropdown @yield('hcf-d-block')" id="homeCategories">
+                            <ul class="nav nav-sm flex-column">
+                                <li class="nav-item">
+                                    <a href="{{route('home.categories.manage')}}" class="nav-link @yield('HCMI-active')">Manage Home Categories</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link menu-link" href="#homeSale" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarForms">
+                            <i class="ri-money-cny-box-line"></i> <span>Home Sale Module</span>
+                        </a>
+                        <div class="collapse menu-dropdown @yield('as-d-block')" id="homeSale">
+                            <ul class="nav nav-sm flex-column">
+                                <li class="nav-item">
+                                    <a href="{{route('admin.sale')}}" class="nav-link @yield('AS-active')">Manage Sale Timer</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
                 </ul>
             </div>
             <!-- Sidebar -->
@@ -1667,6 +1706,11 @@
 
 <!-- init js -->
 <script src="{{asset('/')}}admin/assets/libs/summernote/form-editor.init.js"></script>
+
+<!-- select 2 js -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+@stack('scripts')
 
 <!-- App js -->
 <script src="{{asset('/')}}admin/assets/js/app.js"></script>

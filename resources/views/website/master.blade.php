@@ -57,6 +57,9 @@
     <!-- Default CSS Home Page -->
     <link rel="stylesheet" type="text/css" href="{{asset('/')}}website/assets/css/demo7.min.css">
 
+    <!-- Flip Clock Countdown -->
+    <link href="{{asset('/')}}website/assets/css/flip-clock.css" rel="stylesheet" type="text/css">
+
     <style>
         .dropdown > a::after {
             display: none;
@@ -146,23 +149,8 @@
                     <a href="{{route('home')}}" class="logo ml-lg-0">
                         <img src="{{asset('/')}}website/assets/images/demos/demo7/header-logo.png" alt="logo" width="144" height="45" />
                     </a>
-                    <form method="get" action="#" class="input-wrapper header-search hs-expanded hs-round d-none d-md-flex">
-                        <div class="select-box">
-                            <select id="category" name="category">
-                                <option value="">All Categories</option>
-                                <option value="4">Fashion</option>
-                                <option value="5">Furniture</option>
-                                <option value="6">Shoes</option>
-                                <option value="7">Sports</option>
-                                <option value="8">Games</option>
-                                <option value="9">Computers</option>
-                                <option value="10">Electronics</option>
-                                <option value="11">Kitchen</option>
-                                <option value="12">Clothing</option>
-                            </select>
-                        </div>
-                        <input type="text" class="form-control" name="search" id="search"
-                               placeholder="Search in..." required />
+                    <form method="get" action="{{route('search')}}" class="input-wrapper header-search hs-expanded hs-round d-none d-md-flex">
+                        <input value="{{isset($search) ? $search : ''}}" type="text" class="form-control" name="search" id="search" placeholder="Search" required style="border-left: 2px solid rgb(237, 115, 29);"/>
                         <button class="btn btn-search" type="submit"><i class="w-icon-search"></i>
                         </button>
                     </form>
@@ -176,14 +164,15 @@
                             <a href="tel:#" class="phone-number font-weight-bolder ls-50">0(800)123-456</a>
                         </div>
                     </div>
-                    <a class="wishlist label-down link d-xs-show" href="wishlist.html">
-                        <i class="w-icon-heart"></i>
-                        <span class="wishlist-label d-lg-show">Wishlist</span>
-                    </a>
-                    <a class="compare label-down link d-xs-show" href="compare.html">
-                        <i class="w-icon-compare"></i>
-                        <span class="compare-label d-lg-show">Compare</span>
-                    </a>
+
+                    <div class="dropdown cart-dropdown cart-offcanvas mr-4 mr-lg-2">
+                        <a href="{{route('customer.wishlist')}}" class="label-down link">
+                            <i class="w-icon-heart">
+                                <span id="wishlistCount" class="cart-count">{{count($wishlist_Products)}}</span>
+                            </i>
+                            <span class="cart-label">Wishlist</span>
+                        </a>
+                    </div>
 
                     <!-- default cart -->
                     <div class="dropdown cart-dropdown cart-offcanvas mr-0 mr-lg-2">
@@ -274,74 +263,11 @@
                                     </ul>
                                 </li>
 
-                                <li class="active">
-                                    <a href="demo7.html">Home</a>
+                                <li>
+                                    <a href="{{route('home')}}">Home</a>
                                 </li>
                                 <li>
-                                    <a href="shop-banner-sidebar.html">Shop</a>
-
-                                    <!-- Start of Megamenu -->
-                                    <ul class="megamenu">
-                                        <li>
-                                            <h4 class="menu-title">Shop Pages</h4>
-                                            <ul>
-                                                <li><a href="shop-banner-sidebar.html">Banner With Sidebar</a></li>
-                                                <li><a href="shop-boxed-banner.html">Boxed Banner</a></li>
-                                                <li><a href="shop-fullwidth-banner.html">Full Width Banner</a></li>
-                                                <li><a href="shop-horizontal-filter.html">Horizontal Filter<span
-                                                            class="tip tip-hot">Hot</span></a></li>
-                                                <li><a href="shop-off-canvas.html">Off Canvas Sidebar<span
-                                                            class="tip tip-new">New</span></a></li>
-                                                <li><a href="shop-infinite-scroll.html">Infinite Ajax Scroll</a>
-                                                </li>
-                                                <li><a href="shop-right-sidebar.html">Right Sidebar</a></li>
-                                                <li><a href="shop-both-sidebar.html">Both Sidebar</a></li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <h4 class="menu-title">Shop Layouts</h4>
-                                            <ul>
-                                                <li><a href="shop-grid-3cols.html">3 Columns Mode</a></li>
-                                                <li><a href="shop-grid-4cols.html">4 Columns Mode</a></li>
-                                                <li><a href="shop-grid-5cols.html">5 Columns Mode</a></li>
-                                                <li><a href="shop-grid-6cols.html">6 Columns Mode</a></li>
-                                                <li><a href="shop-grid-7cols.html">7 Columns Mode</a></li>
-                                                <li><a href="shop-grid-8cols.html">8 Columns Mode</a></li>
-                                                <li><a href="shop-list.html">List Mode</a></li>
-                                                <li><a href="shop-list-sidebar.html">List Mode With Sidebar</a></li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <h4 class="menu-title">Product Pages</h4>
-                                            <ul>
-                                                <li><a href="product-variable.html">Variable Product</a></li>
-                                                <li><a href="product-featured.html">Featured &amp; Sale</a></li>
-                                                <li><a href="product-accordion.html">Data In Accordion</a></li>
-                                                <li><a href="product-section.html">Data In Sections</a></li>
-                                                <li><a href="product-swatch.html">Image Swatch</a></li>
-                                                <li><a href="product-extended.html">Extended Info</a>
-                                                </li>
-                                                <li><a href="product-without-sidebar.html">Without Sidebar</a></li>
-                                                <li><a href="product-video.html">360<sup>o</sup> &amp; Video<span
-                                                            class="tip tip-new">New</span></a></li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <h4 class="menu-title">Product Layouts</h4>
-                                            <ul>
-                                                <li><a href="product-default.html">Default<span
-                                                            class="tip tip-hot">Hot</span></a></li>
-                                                <li><a href="product-vertical.html">Vertical Thumbs</a></li>
-                                                <li><a href="product-grid.html">Grid Images</a></li>
-                                                <li><a href="product-masonry.html">Masonry</a></li>
-                                                <li><a href="product-gallery.html">Gallery</a></li>
-                                                <li><a href="product-sticky-info.html">Sticky Info</a></li>
-                                                <li><a href="product-sticky-thumb.html">Sticky Thumbs</a></li>
-                                                <li><a href="product-sticky-both.html">Sticky Both</a></li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                    <!-- End of Megamenu -->
+                                    <a href="{{route('shop')}}">Shop</a>
                                 </li>
                                 <li>
                                     <a href="vendor-dokan-store.html">Vendor</a>
@@ -1423,6 +1349,7 @@
 
 <script src="{{asset('/')}}website/assets/vendor/swiper/swiper-bundle.min.js"></script>
 
+
 <!-- Main JS -->
 <script src="{{asset('/')}}website/assets/js/main.min.js"></script>
 
@@ -1438,6 +1365,97 @@
     });
 </script>
 
+<!-- Flip Clock Countdown -->
+<script src="{{asset('/')}}website/assets/js/flip-clock.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.flip-3').on('done', function() {
+            console.log('doooooonnnnnee!');
+        });
+        $('.flip-3').on('beforeFlipping', function(e, data) {
+            console.log('beforeFlipping:', data);
+        });
+        $('.flip-3').on('afterFlipping', function(e, data) {
+            console.log('afterFlipping:', data);
+        });
+        // $('.flip-2').on('done', function() {
+        //   console.log('doooooonnnnnee!');
+        // });
+        // $('.flip-2').on('beforeFlipping', function(e, data) {
+        //   console.log('beforeFlipping:', data);
+        // });
+        // $('.flip-2').on('afterFlipping', function(e, data) {
+        //   console.log('afterFlipping:', data);
+        // });
+    });
+</script>
+<script>
+    try {
+        fetch(new Request("https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js", { method: 'HEAD', mode: 'no-cors' })).then(function(response) {
+            return true;
+        }).catch(function(e) {
+            var carbonScript = document.createElement("script");
+            carbonScript.src = "//cdn.carbonads.com/carbon.js?serve=CK7DKKQU&placement=wwwjqueryscriptnet";
+            carbonScript.id = "_carbonads_js";
+            document.getElementById("carbon-block").appendChild(carbonScript);
+        });
+    } catch (error) {
+        console.log(error);
+    }
+</script>
+<script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-36251023-1']);
+    _gaq.push(['_setDomainName', 'jqueryscript.net']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+</script>
+<script>
+     // Wishlist Ajax
+     $(`#wishlistForm`).submit(function (e) {
+        e.preventDefault();
+        $.ajax({
+            url: "{{route('wishlist.add')}}",
+            data: $(`#wishlistForm`).serialize(),
+            type: 'POST',
+            success: function (response) {
+                if(response.wishlist == true)
+                {
+                    var wishCount =  Number(document.getElementById('wishlistCount').innerHTML) + 1;
+                    $('#wishlistCount').html(wishCount);
+
+                    $('#wishlistMsg').html(response.result);
+                    $(`#wishlistBtn`).removeClass('w-icon-heart');
+                    $(`#wishlistBtn`).addClass('w-icon-heart-full');
+                    console.log(wishCount);
+                }
+                else
+                {
+                    var wishCount =  Number(document.getElementById('wishlistCount').innerHTML) - 1;
+                    $('#wishlistCount').html(wishCount);
+
+                    $('#wishlistMsg').html(response.result);
+                    $(`#wishlistBtn`).removeClass('w-icon-heart-full');
+                    $(`#wishlistBtn`).addClass('w-icon-heart');
+                    console.log(response.result);
+                }
+
+            },
+            error: function (response) {
+                console.log(response);
+            }
+        });
+     });
+
+</script>
+<script src="{{asset('/')}}website/assets/js/script.js"></script>
 </body>
 
 

@@ -63,7 +63,7 @@
                             </td>
                             <td>{{$order->order_date}}</td>
                             <td>{{$order->order_status}}</td>
-                            <td>{{$order->payment_method ? 'Cash on Delivery' : 'Online'}}</td>
+                            <td>{{$order->payment_method == 1 ? 'Cash on Delivery' : 'Online'}}</td>
                             <td>{{$order->payment_status}}</td>
                             <td>
                                 <div class="dropdown topbar-head-dropdown ms-1 header-item">
@@ -105,7 +105,7 @@
                                                     </a>
                                                 </div>
                                                 <div class="col">
-                                                    <a title="Order Delete" href="{{route('admin.order-delete', ['id' => $order->id])}}" class="dropdown-icon-item btn {{$order->order_status == 'pending' | $order->order_status == 'complete' | $order->order_status == 'processing' ? 'disabled' : ''}}" style="border: none;" onclick="return confirm('Are you Sure to delete this entry?')">
+                                                    <a title="Order Delete" href="{{route('admin.order-delete', ['id' => $order->id])}}" class="dropdown-icon-item btn {{$order->order_status == 'Pending' || $order->order_status == 'Complete' || $order->order_status == 'Processing' ? 'disabled' : ''}}" style="border: none;" onclick="return confirm('Are you Sure to delete this entry?')">
                                                         <i class="ri ri-delete-bin-fill text-danger" style="font-size: 30px;"></i>
                                                     </a>
                                                 </div>

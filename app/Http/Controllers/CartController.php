@@ -3,19 +3,31 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Sale;
 use Illuminate\Http\Request;
 use Cart;
+use Illuminate\Support\Carbon;
 
 class CartController extends Controller
 {
-    private $product;
+    private $product, $price, $sale, $sale_products;
     public function index(Request $request, $id)
     {
-        $this->product = Product::find($id);
+        $this->sale             = Sale::find(1);
+        $this->sale_products    = Product::where('selling_price', '>', 0)->inRandomOrder()->take(12)->get();
+        $this->product          = Product::find($id);
+        if($this->sale_products->count() > 0 && $this->sale->status == 1 && $this->sale->sale_date > Carbon::now())
+        {
+            $this->price = $this->product->selling_price;
+        }
+        else
+        {
+            $this->price = $this->product->regular_price;
+        }
         Cart::add([
             'id'            => $this->product->id,
             'name'          => $this->product->name,
-            'price'         => $this->product->selling_price,
+            'price'         => $this->price,
             'quantity'      => $request->quantity,
             'attributes'    => [
                 'image'             => $this->product->image,
