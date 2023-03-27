@@ -240,7 +240,7 @@
                                 <div class="product-label-group">
                                     <label style="background-color: red;" class="product-label label-discount">Sale</label>
                                 </div>
-                                <a href="product-default.html">
+                                <a href="{{route('detail', ['id' => $product->id])}}">
                                     <img src="{{asset($product->image)}}" alt="Sale Product"
                                          width="239" height="269">
                                 </a>

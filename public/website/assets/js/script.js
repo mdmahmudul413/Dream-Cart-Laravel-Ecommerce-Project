@@ -22,11 +22,13 @@ function nameFieldValidate()
     if (regex.test(nameValue))
     {
         $('#nameError').text('');
+        $('#placeOrderBtn').css('backgroundColor', '#333');
         return true;
     }
     else
     {
         $('#nameError').text('Name field need 3 to 20 characters only with spaces');
+        $('#placeOrderBtn').css('backgroundColor', 'red');
         return false;
     }
 }
@@ -43,11 +45,13 @@ function emailFieldValidate()
     if (regex.test(emailValue))
     {
         $('#emailError').text('');
+        $('#placeOrderBtn').css('backgroundColor', '#333');
         return true;
     }
     else
     {
         $('#emailError').text('Email address is invalid');
+        $('#placeOrderBtn').css('backgroundColor', 'red');
         return false;
     }
 }
@@ -64,11 +68,13 @@ function mobileFieldValidate()
     if (regex.test(mobileValue))
     {
         $('#mobileError').text('');
+        $('#placeOrderBtn').css('backgroundColor', '#333');
         return true;
     }
     else
     {
         $('#mobileError').text('Mobile number format is invalid');
+        $('#placeOrderBtn').css('backgroundColor', 'red');
         return false;
     }
 }
